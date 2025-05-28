@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1141602117188826141}
   - component: {fileID: 8332978931566565374}
   - component: {fileID: 141898189338258648}
-  - component: {fileID: 1708027404927860175}
+  - component: {fileID: -3623298605705968254}
   m_Layer: 0
-  m_Name: Tower
+  m_Name: Tower1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1708027404927860175
+--- !u!114 &-3623298605705968254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 549219389250688562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99ef9ff193db4424ac72c906d9e8ab01, type: 3}
+  m_Script: {fileID: 11500000, guid: 88bfd225187d4617b9157788fb81fc67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerType: 0

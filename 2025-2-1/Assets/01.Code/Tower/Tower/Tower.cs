@@ -1,13 +1,14 @@
-using _01.Code.Tower.Build;
 using UnityEngine;
 
 namespace _01.Code.Tower.Tower
 {
-    public  class Tower : MonoBehaviour, ISelectable
+    public enum TowerType
     {
-        public void Select()
-        {
-            
-        }
+        Tower1 = 0,
+    }
+    
+    public abstract class Tower : MonoBehaviour
+    {
+        public TowerType towerType; 
     }
 }

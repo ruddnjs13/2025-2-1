@@ -1,12 +1,20 @@
-using _01.Code.Tower.Build;
+using _01.Code.Tower.Tower;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
-namespace _01.Code.Tower
+public class PlaceTile : MonoBehaviour
 {
-    public class PlaceTile : MonoBehaviour, ISelectable
+    [field: SerializeField] public Transform PlaceTrm { get; set; }
+    
+    public bool CanBuild { get; private set; } = true;
+    
+    private Tower ownTower;
+
+    public void SetTower(Tower tower)
     {
-        public void Select()
-        {
-        }
+        if(!CanBuild) return;
+        
+        ownTower = tower;
+        CanBuild = false;
     }
 }
