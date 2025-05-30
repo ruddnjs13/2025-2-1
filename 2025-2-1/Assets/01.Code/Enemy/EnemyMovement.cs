@@ -11,6 +11,7 @@ namespace _01.Code.Enemy
         private NavMeshAgent _navAgent;
         
         [SerializeField] private List<Transform> wayPoints;
+        [SerializeField] private EnemyRenderer enemyRenderer;
         private int _currentIndex = 0;
         
         
@@ -18,6 +19,7 @@ namespace _01.Code.Enemy
         {
             _navAgent = GetComponent<NavMeshAgent>();
             _navAgent.stoppingDistance = 0f;
+            _navAgent.updateRotation = false;
         }
 
         private void OnEnable()
@@ -32,8 +34,18 @@ namespace _01.Code.Enemy
         {
             if (_navAgent.remainingDistance <= _navAgent.stoppingDistance)
             {
-                _navAgent.SetDestination(wayPoints[_currentIndex++].position);
+                if (_currentIndex >= wayPoints.Count)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    _navAgent.SetDestination(wayPoints[_currentIndex++].position);
+                    
+                }
             }
+            
+            enemyRenderer.FlipByCamera(_navAgent.destination - transform.position);
         }
     }
 }

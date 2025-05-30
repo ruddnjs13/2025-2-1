@@ -9,6 +9,8 @@ namespace _01.Code.Tower.Tower
     
     public abstract class Tower : MonoBehaviour
     {
-        public TowerType towerType; 
+        public TowerType towerType;
+        
+        
     }
 }
