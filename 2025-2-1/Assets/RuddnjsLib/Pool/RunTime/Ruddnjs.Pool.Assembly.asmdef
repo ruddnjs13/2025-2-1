@@ -1,0 +1,14 @@
+{
+    "name": "Ruddnjs.Pool.Assembly",
+    "rootNamespace": "RuddnjsPool",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
