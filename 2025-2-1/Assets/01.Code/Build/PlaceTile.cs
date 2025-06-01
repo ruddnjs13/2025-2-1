@@ -1,4 +1,4 @@
-using _01.Code.Tower.Tower;
+using _01.Code.Tower.Towers;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -8,13 +8,13 @@ public class PlaceTile : MonoBehaviour
     
     public bool CanBuild { get; private set; } = true;
     
-    private Tower ownTower;
+    private TowerBase _ownTowerBase;
 
-    public void SetTower(Tower tower)
+    public void SetTower(TowerBase towerBase)
     {
         if(!CanBuild) return;
         
-        ownTower = tower;
+        _ownTowerBase = towerBase;
         CanBuild = false;
     }
 }

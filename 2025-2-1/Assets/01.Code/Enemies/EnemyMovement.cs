@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
-namespace _01.Code.Enemy
+namespace _01.Code.Enemies
 {
     public class EnemyMovement : MonoBehaviour
     {
@@ -14,21 +13,27 @@ namespace _01.Code.Enemy
         [SerializeField] private EnemyRenderer enemyRenderer;
         private int _currentIndex = 0;
         
-        
         private void Awake()
         {
             _navAgent = GetComponent<NavMeshAgent>();
             _navAgent.stoppingDistance = 0f;
             _navAgent.updateRotation = false;
+            _navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         }
 
         private void OnEnable()
+        {
+        }
+
+        private void Start()
         {
             _navAgent.SetDestination(wayPoints[_currentIndex++].position);
         }
 
         public void SetSpeed(float speed) => _navAgent.speed = speed;
         public void SetStop(bool isStop) => _navAgent.isStopped = isStop;
+        public float GetDistance() => _navAgent.remainingDistance;
+        public int GetWaypointIdx() => _currentIndex;
 
         private void Update()
         {
@@ -36,16 +41,14 @@ namespace _01.Code.Enemy
             {
                 if (_currentIndex >= wayPoints.Count)
                 {
-                    Destroy(gameObject);
+                    //나중에 피 까이기
                 }
                 else
                 {
                     _navAgent.SetDestination(wayPoints[_currentIndex++].position);
-                    
+                    enemyRenderer.FlipByCamera(_navAgent.destination - transform.position);
                 }
             }
-            
-            enemyRenderer.FlipByCamera(_navAgent.destination - transform.position);
         }
     }
 }
