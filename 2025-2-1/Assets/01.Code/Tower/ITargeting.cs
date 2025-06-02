@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using _01.Code.Enemies;
 
 namespace _01.Code.Tower
 {
     public interface ITargeting
     {
-        Enemies.Enemy FindTarget(List<Enemies.Enemy> enemies);
+        Enemy FindTarget(List<Enemies.Enemy> enemies);
     }
 }

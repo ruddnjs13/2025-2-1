@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using _01.Code.Combat;
 using _01.Code.Managers;
 using RuddnjsPool;
@@ -25,13 +26,9 @@ namespace _01.Code.Enemies
 
         public bool IsDead { get; private set; } = false;
         
-        private void Start()
+        public void ResetEnemy(List<Transform> wayPoints)
         {
-            ResetEnemy();
-        }
-
-        private void ResetEnemy()
-        {
+            movement.SetWayPoints(wayPoints);
             InitEnemy(enemyData.maxHealth, enemyData.damage, enemyData.moveSpeed);
         }
 

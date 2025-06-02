@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using _01.Code.Enemies;
 using _01.Code.ETC;
@@ -12,7 +13,7 @@ namespace _01.Code.Tower.Towers
 {
     public enum TowerType
     {
-        ARCHER = 0,
+        ARCHER = 0,MAGE = 1
     }
     
     public abstract class TowerBase : MonoBehaviour, ITargeting, IAttack
@@ -31,22 +32,16 @@ namespace _01.Code.Tower.Towers
         private readonly int dirXHash = Animator.StringToHash("DirX");
         private readonly int dirYHash = Animator.StringToHash("DirY");
 
-        private Enemy _target;
+        
 
-        public bool EnableTower { get; set; } = false;
-    
-        private float fireTimer;
-
-
-        protected virtual void Update()
+        public void EnableTower()
         {
-            if(!EnableTower) return;
-            CalculateTimer();
+            StartCoroutine(AttackCoroutine());
         }
 
-        private void CalculateTimer()
+        private IEnumerator  AttackCoroutine()
         {
-            if (fireTimer <= 0f)
+            while (true)
             {
                 Enemy target = FindTarget(EnemyManager.Instance.GetAllEnemies());
                 if (target != null && target.IsDead == false)
@@ -57,45 +52,37 @@ namespace _01.Code.Tower.Towers
                     animator.SetFloat(dirXHash, direction.x);
                     animator.SetFloat(dirYHash, direction.z);
                     
-                    fireTimer = fireRate;
-                    _target = target;
                     animator.SetTrigger("ATTACK");
-                    Debug.Log("발사");
                     Attack(target);
+                    yield return new WaitForSeconds(fireRate);
                 }
+
+                yield return null;
             }
-
-            fireTimer -= Time.deltaTime;
         }
-
-        public virtual Enemy FindTarget(List<Enemy> enemies)
-        {
-            
-            if (enemies.Count <= 0) return null;
         
-            Enemy target = enemies[0];
-
-            for (int i = 1; i < enemies.Count; i++)
+        
+        public virtual Enemy FindTarget( List<Enemy> enemies)
+        {
+            Enemy closest = null;
+            float minDistance = float.MaxValue;
+            
+            foreach (Enemy enemy in EnemyManager.Instance.GetAllEnemies())
             {
-                if(enemies[i].IsDead) continue;
-                if (target.GetWaypointIdx() < enemies[i].GetWaypointIdx())
+                if (enemy == null) continue; // null 체크
+
+                float dist = Vector3.Distance(transform.position, enemy.transform.position);
+                if (dist <= range && dist < minDistance)
                 {
-                    target = enemies[i];
-                }
-                else if (target.GetWaypointIdx() == enemies[i].GetWaypointIdx())
-                {
-                    if (enemies[i].GetDistance() < target.GetDistance())
-                        target = enemies[i];
+                    closest = enemy;
+                    minDistance = dist;
                 }
             }
 
-            if (target.GetDistance() >= range) return null;
-            return target;
+            return closest;
         }
 
-        public virtual void Attack(Enemy target)
-        {
-        }
+        public virtual void Attack(Enemy target) {}
         
         #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
@@ -105,6 +92,4 @@ namespace _01.Code.Tower.Towers
         }
 #endif
     }
-    
-    
 }

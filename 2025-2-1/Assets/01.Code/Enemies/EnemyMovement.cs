@@ -21,10 +21,11 @@ namespace _01.Code.Enemies
             _navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         }
 
-        private void OnEnable()
+        public void SetWayPoints(List<Transform> wayPoints)
         {
+            this.wayPoints = wayPoints;
         }
-
+        
         private void Start()
         {
             _navAgent.SetDestination(wayPoints[_currentIndex++].position);

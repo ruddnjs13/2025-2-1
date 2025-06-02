@@ -20,7 +20,7 @@ public class BuildManager : MonoSingleton<BuildManager>
             t.transform.DOMoveY(placeTile.PlaceTrm.position.y, 1f).SetEase(Ease.InOutCubic)
                 .OnComplete(() =>
                 {
-                    t.EnableTower = true;
+                    t.EnableTower();
                 });
         }
     }
