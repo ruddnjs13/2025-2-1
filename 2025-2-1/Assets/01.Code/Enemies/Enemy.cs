@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _01.Code.Combat;
 using _01.Code.Managers;
+using Core.GameEvent;
 using RuddnjsPool;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,6 +18,7 @@ namespace _01.Code.Enemies
         [SerializeField] private EnemyMovement movement;
         [SerializeField] private EnemyDataSO enemyData;
         [SerializeField] private PoolManagerSO poolManager;
+        [SerializeField] private GameEventChannelSO goldChannel;
         
         [Header("EnemyStat")]
         [field:SerializeField] public int Health { get; private set; }
@@ -44,10 +46,11 @@ namespace _01.Code.Enemies
         {
             Health = Mathf.Clamp(Health - damage,0, enemyData.maxHealth);
             OnHitEvent?.Invoke();
-            if (Health <= 0)
+            if (Health <= 0 && !IsDead)
             {
                 IsDead = true;
                 OnDeadEvent?.Invoke();
+                goldChannel.RaiseEvent(GoldEvent.getGoldEvent.Initialize(enemyData.getGold));
                 StartCoroutine(DeadCoroutine());
             }
         }
