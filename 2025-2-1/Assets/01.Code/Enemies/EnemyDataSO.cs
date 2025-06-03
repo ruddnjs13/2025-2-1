@@ -6,7 +6,7 @@ namespace _01.Code.Enemies
     public class EnemyDataSO : ScriptableObject
     {
         public int maxHealth;
-        public int moveSpeed;
+        public float moveSpeed;
         public int damage;
     }
 }

@@ -25,11 +25,13 @@ namespace _01.Code.Enemies
         {
             this.wayPoints = wayPoints;
         }
-        
-        private void Start()
+
+        public void EnableEnemy()
         {
+            _currentIndex = 0;
             _navAgent.SetDestination(wayPoints[_currentIndex++].position);
         }
+
 
         public void SetSpeed(float speed) => _navAgent.speed = speed;
         public void SetStop(bool isStop) => _navAgent.isStopped = isStop;

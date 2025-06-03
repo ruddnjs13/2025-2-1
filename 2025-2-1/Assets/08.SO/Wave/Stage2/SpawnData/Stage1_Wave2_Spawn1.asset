@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839fcb1266e05ce4f9b82007201059f7, type: 3}
-  m_Name: FireBall
+  m_Script: {fileID: 11500000, guid: b021b69ae105c934d87895c05c02f9d1, type: 3}
+  m_Name: Stage1_Wave2_Spawn1
   m_EditorClassIdentifier: 
-  poolType: {fileID: 11400000, guid: 081b3216e7ce0cf48a61f75c401076d7, type: 2}
-  prefab: {fileID: 60878625315853044, guid: 90999ede8b5970d47a05100140711a40, type: 3}
-  initCount: 30
+  enemyType: {fileID: 11400000, guid: ddb3f28327dfc304f9626021875f3303, type: 2}
+  spawnCount: 1
+  spawnInterval: 2

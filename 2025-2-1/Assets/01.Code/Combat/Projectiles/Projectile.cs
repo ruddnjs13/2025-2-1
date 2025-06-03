@@ -9,7 +9,7 @@ namespace _01.Code.Combat.Projectiles
         [SerializeField] private PoolManagerSO poolManager;
         [SerializeField] protected float speed;
         [SerializeField] private int damage;
-        [SerializeField] private LayerMask whatIsEnemy;
+        [SerializeField] protected LayerMask whatIsEnemy;
         protected Enemy target;
 
         protected bool isFire = false;
@@ -18,11 +18,11 @@ namespace _01.Code.Combat.Projectiles
         {
             if (isFire)
             {
-                MoveTowardsTarget();
                 if (target == null)
                 {
                     OnTargetLost();
                 }
+                MoveTowardsTarget();
             }
         }
 
@@ -40,7 +40,7 @@ namespace _01.Code.Combat.Projectiles
             transform.forward = dir; 
         }
 
-        private void OnTriggerEnter(Collider collision)
+        public virtual void OnTriggerEnter(Collider collision)
         {
 
             if (((1 << collision.gameObject.layer) & whatIsEnemy) != 0)

@@ -32,11 +32,12 @@ namespace _01.Code.Enemies
             InitEnemy(enemyData.maxHealth, enemyData.damage, enemyData.moveSpeed);
         }
 
-        public void InitEnemy(int maxHealth, int damage, int moveSpeed)
+        public void InitEnemy(int maxHealth, int damage, float moveSpeed)
         {
             Health = maxHealth;
             Damage = damage;
             movement.SetSpeed(moveSpeed);
+            movement.EnableEnemy();
         }
 
         public void TakeDamage(int damage)

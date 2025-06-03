@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839fcb1266e05ce4f9b82007201059f7, type: 3}
-  m_Name: FireBall
+  m_Script: {fileID: 11500000, guid: 7171e79813316404694d15dcc81c24ce, type: 3}
+  m_Name: EnemyOrc
   m_EditorClassIdentifier: 
-  poolType: {fileID: 11400000, guid: 081b3216e7ce0cf48a61f75c401076d7, type: 2}
-  prefab: {fileID: 60878625315853044, guid: 90999ede8b5970d47a05100140711a40, type: 3}
-  initCount: 30
+  typeName: EnemyOrc

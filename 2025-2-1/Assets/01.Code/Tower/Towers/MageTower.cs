@@ -10,10 +10,10 @@ namespace _01.Code.Tower.Towers
         {
             base.Attack(target);
             
-            FireBall fireBall = poolManager.Pop(projectileType) as FireBall;
-            fireBall.transform.position = firePos.position;
+            EnergyBall energyBall = poolManager.Pop(projectileType) as EnergyBall;
+            energyBall.transform.position = firePos.position;
             
-            fireBall.SetTargetAndFire(target, damage);
+            energyBall.SetTargetAndFire(target, damage);
         }
     }
 }
