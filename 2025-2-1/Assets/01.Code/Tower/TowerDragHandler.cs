@@ -4,6 +4,7 @@ using _01.Code.Managers;
 using _01.Code.Tower.Towers;
 using Core.GameEvent;
 using Settings.InputSettings;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ namespace _01.Code.Tower
         
         [SerializeField] private GameObject preview;
         [SerializeField] private GameObject Visual;
+        [SerializeField] private TextMeshProUGUI priceText;
 
         [SerializeField] private int necessaryGold;
 
@@ -28,49 +30,41 @@ namespace _01.Code.Tower
         
         private void Start()
         {
-            goldChannel.AddListener<GetGoldEvent>(HandleGetGold);
-
-            CheckEnable();
+            goldChannel.AddListener<GoldValueChangeEvent>(HandleGoldValueChange);
+            priceText.text = $"${necessaryGold}";
         }
 
-        private void CheckEnable()
-        {
-            if (GoldManager.Instance.CheckEnoughGold(necessaryGold))
-            {
-                Visual.GetComponent<Image>().color = _enableColor;
-            }
-            else
-            {
-                Visual.GetComponent<Image>().color = _disableColor;
-            }
-        }
 
         private void OnDestroy()
         {
-            goldChannel.RemoveListener<GetGoldEvent>(HandleGetGold);
+            goldChannel.RemoveListener<GoldValueChangeEvent>(HandleGoldValueChange);
+
         }
 
-        private void HandleGetGold(GetGoldEvent evt)
+        private void HandleGoldValueChange(GoldValueChangeEvent evt)
         {
-            CheckEnable();
+            if(GoldManager.Instance.CheckEnoughGold(necessaryGold))
+                Visual.GetComponent<Image>().color = _enableColor;
+            else
+                Visual.GetComponent<Image>().color = _disableColor;
         }
 
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if(!GoldManager.Instance.CheckEnoughGold(necessaryGold)) return;
+            if(GoldManager.Instance.CheckEnoughGold(necessaryGold) == false) return;
             preview.SetActive(true);
         }
         
         public void OnDrag(PointerEventData eventData)
         {
-            if(!GoldManager.Instance.CheckEnoughGold(necessaryGold)) return;
+            if(GoldManager.Instance.CheckEnoughGold(necessaryGold) == false) return;
             preview.transform.position = eventData.position;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if(!GoldManager.Instance.CheckEnoughGold(necessaryGold)) return;
+            if(GoldManager.Instance.CheckEnoughGold(necessaryGold) == false) return;
             Camera mainCam = Camera.main;
             Ray camRay = mainCam.ScreenPointToRay(inputReader.MousePosition);
 
@@ -78,7 +72,7 @@ namespace _01.Code.Tower
             {
                 if (hit.collider.TryGetComponent(out PlaceTile placeTile))
                 {
-                    BuildManager.Instance.BuildTower(placeTile,type);
+                    BuildManager.Instance.BuildTower(placeTile,type,necessaryGold);
                 }
             }
         

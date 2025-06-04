@@ -13,6 +13,8 @@ namespace _01.Code.Managers
 
         [SerializeField] private GameEventChannelSO goldChannel;
 
+        [SerializeField] private int startGold;
+        
         public bool CheckEnoughGold(int useAmount)
         {
             return Gold >= useAmount;
@@ -22,18 +24,24 @@ namespace _01.Code.Managers
         {
             goldChannel.AddListener<GetGoldEvent>(HandleGetGold);
             goldChannel.AddListener<SpendGoldEvent>(HandleSpendGold);
+            
+            goldChannel.RaiseEvent(GoldEvent.getGoldEvent.Initialize(startGold));
+            
         }
 
         private void HandleSpendGold(SpendGoldEvent evt)
         {
             Gold -= evt.spendAmount;
             ChangeGoldUI();
+            goldChannel.RaiseEvent(GoldEvent.goldValueChangeEvent);
         }
 
         private void HandleGetGold(GetGoldEvent evt)
         {
             Gold += evt.getAmount;
             ChangeGoldUI();
+            goldChannel.RaiseEvent(GoldEvent.goldValueChangeEvent);
+
         }
 
         private void ChangeGoldUI()

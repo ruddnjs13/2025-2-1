@@ -4,6 +4,7 @@ namespace Core.GameEvent
     {
         public static GetGoldEvent getGoldEvent = new GetGoldEvent();
         public static SpendGoldEvent spendGolEvent = new SpendGoldEvent();
+        public static GoldValueChangeEvent goldValueChangeEvent = new GoldValueChangeEvent();
     }
 
     public class GetGoldEvent : GameEvent
@@ -25,5 +26,9 @@ namespace Core.GameEvent
             spendAmount = amount;
             return this;
         }
+    }
+
+    public class GoldValueChangeEvent : GameEvent
+    {
     }
 }
