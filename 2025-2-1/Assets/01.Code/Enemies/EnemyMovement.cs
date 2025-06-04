@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace _01.Code.Enemies
 {
     public class EnemyMovement : MonoBehaviour
     {
+        public UnityEvent OnArriveEvent;
+        
         private NavMeshAgent _navAgent;
         
         [SerializeField] private List<Transform> wayPoints;
@@ -44,7 +47,7 @@ namespace _01.Code.Enemies
             {
                 if (_currentIndex >= wayPoints.Count)
                 {
-                    //나중에 피 까이기
+                    OnArriveEvent?.Invoke();
                 }
                 else
                 {

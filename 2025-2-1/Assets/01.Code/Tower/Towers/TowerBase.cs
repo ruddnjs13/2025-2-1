@@ -43,7 +43,7 @@ namespace _01.Code.Tower.Towers
         {
             while (true)
             {
-                Enemy target = FindTarget(EnemyManager.Instance.GetAllEnemies());
+                Enemy target = FindTarget(WaveManager.Instance.GetAllEnemies());
                 if (target != null && target.IsDead == false)
                 {
                     Vector3 direction = (target.transform.position - transform.position).normalized;
@@ -67,7 +67,7 @@ namespace _01.Code.Tower.Towers
             Enemy closest = null;
             float minDistance = float.MaxValue;
             
-            foreach (Enemy enemy in EnemyManager.Instance.GetAllEnemies())
+            foreach (Enemy enemy in WaveManager.Instance.GetAllEnemies())
             {
                 if (enemy == null) continue; // null 체크
 

@@ -11,14 +11,15 @@ namespace _01.Code.Enemies
 {
     public abstract class Enemy : MonoBehaviour, IDamageable, IPoolable
     {
-        public UnityEvent OnHitEvent;
+        public UnityEvent<int> OnHitEvent;
         public UnityEvent OnDeadEvent;
         
         [SerializeField] private EnemyRenderer renderer;
         [SerializeField] private EnemyMovement movement;
-        [SerializeField] private EnemyDataSO enemyData;
         [SerializeField] private PoolManagerSO poolManager;
         [SerializeField] private GameEventChannelSO goldChannel;
+        [SerializeField] private GameEventChannelSO systemChannel;
+        [field:SerializeField] public EnemyDataSO enemyData { get; private set; }
         
         [Header("EnemyStat")]
         [field:SerializeField] public int Health { get; private set; }
@@ -45,7 +46,7 @@ namespace _01.Code.Enemies
         public void TakeDamage(int damage)
         {
             Health = Mathf.Clamp(Health - damage,0, enemyData.maxHealth);
-            OnHitEvent?.Invoke();
+            OnHitEvent?.Invoke(Health);
             if (Health <= 0 && !IsDead)
             {
                 IsDead = true;
@@ -55,14 +56,21 @@ namespace _01.Code.Enemies
             }
         }
 
+        public void Arrive()
+        {
+            systemChannel.RaiseEvent(SystemEvent.LifeDownEvent);
+            poolManager.Push(this);
+        }
+
         private IEnumerator DeadCoroutine()
         {
             movement.SetStop(true);
             renderer.SetParam(_deadHash);
             yield return new WaitForSeconds(3f);
-            EnemyManager.Instance.UnregisterEnemy(this);
+            WaveManager.Instance.UnregisterEnemy(this);
             poolManager.Push(this);
         }
+        
 
         #region Pool
         public float GetDistance() => movement.GetDistance();

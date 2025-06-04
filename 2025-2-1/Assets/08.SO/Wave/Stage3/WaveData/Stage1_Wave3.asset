@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b73cc3f141cb4602a81730dba70c6364, type: 3}
-  m_Name: Stage1_Wave1
+  m_Name: Stage1_Wave3
   m_EditorClassIdentifier: 
   nextWaveDelay: 8
   spawnGroupList:
-  - {fileID: 11400000, guid: 9619e6a7e4474774093102803de6eadf, type: 2}
-  - {fileID: 11400000, guid: 2187871475b55c546b324cd0c46e225e, type: 2}
-  - {fileID: 11400000, guid: facf516582593904fa5dde7c2a44962a, type: 2}
+  - {fileID: 11400000, guid: 28263c8487f3c2d4ba26baf6d75e6db8, type: 2}
+  - {fileID: 11400000, guid: a988b519ce3aca646bcc3003dd0dcbfc, type: 2}
+  - {fileID: 11400000, guid: 6c82edec31e05184fa568a19deec041b, type: 2}
+  - {fileID: 11400000, guid: 9fa598fd976ef0d49a06e1c23176e9d4, type: 2}

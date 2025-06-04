@@ -4,12 +4,14 @@ using _01.Code.Enemies;
 using _01.Code.ETC;
 using RuddnjsPool;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace _01.Code.Managers
 {
-    public class EnemyManager : MonoSingleton<EnemyManager>
+    public class WaveManager : MonoSingleton<WaveManager>
     {
-
+        public UnityEvent<int> OnWaveStart;
+        
         [SerializeField] private PoolManagerSO poolManager;
         [SerializeField] private List<Enemy> enemies = new List<Enemy>();
         [SerializeField] private Transform spawnTrm;
@@ -24,6 +26,7 @@ namespace _01.Code.Managers
         {
             for (int i = 0; i < waveInfos.Count; i++)
             {
+                OnWaveStart?.Invoke(i);
                 for (int j = 0; j < waveInfos[i].spawnGroupList.Count; j++)
                 {
                     WaitForSeconds wait = new WaitForSeconds(waveInfos[i].spawnGroupList[j].spawnInterval * 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73cc3f141cb4602a81730dba70c6364, type: 3}
   m_Name: Stage1_Wave2
   m_EditorClassIdentifier: 
-  nextWaveDelay: 5
+  nextWaveDelay: 8
   spawnGroupList:
   - {fileID: 11400000, guid: 50aea64b86d2fc54c8f29ab81ba6ba30, type: 2}
   - {fileID: 11400000, guid: 0814d6f25d90bb84085ca496f672da00, type: 2}
