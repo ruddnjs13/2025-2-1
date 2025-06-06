@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6201664729271413522}
   - component: {fileID: 146014825272241753}
   - component: {fileID: 1432147341732952382}
+  - component: {fileID: 5178943968046350076}
   m_Layer: 5
   m_Name: HealthBarCanvas
   m_TagString: Untagged
@@ -28,8 +29,8 @@ RectTransform:
   m_GameObject: {fileID: 5673995391164363970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5836801899611911600}
   m_Father: {fileID: 0}
@@ -102,6 +103,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5178943968046350076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5673995391164363970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679ec5372df0468bb016eac9166eba36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  border: {fileID: 1722313214099396871}
+  fill: {fileID: 5947516224394916588}
 --- !u!1 &6183400355580136730
 GameObject:
   m_ObjectHideFlags: 0

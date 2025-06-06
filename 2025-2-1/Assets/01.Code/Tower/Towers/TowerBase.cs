@@ -5,8 +5,10 @@ using _01.Code.Enemies;
 using _01.Code.ETC;
 using _01.Code.Managers;
 using RuddnjsPool;
+using Settings.InputSettings;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 namespace _01.Code.Tower.Towers
@@ -27,13 +29,15 @@ namespace _01.Code.Tower.Towers
         [SerializeField] protected PoolTypeSO projectileType;
         [SerializeField] protected PoolManagerSO poolManager;
         [SerializeField] protected Animator animator;
-        [SerializeField] protected AnimationTrigger animationTrigger;
+        [SerializeField] protected InputReaderSO inputReader;
         
         private readonly int dirXHash = Animator.StringToHash("DirX");
         private readonly int dirYHash = Animator.StringToHash("DirY");
 
-        
+        private bool _isDrag;
 
+
+        #region AttackLogic
         public void EnableTower()
         {
             StartCoroutine(AttackCoroutine());
@@ -41,6 +45,7 @@ namespace _01.Code.Tower.Towers
 
         private IEnumerator  AttackCoroutine()
         {
+            yield return new WaitForSeconds(fireRate);
             while (true)
             {
                 Enemy target = FindTarget(WaveManager.Instance.GetAllEnemies());
@@ -48,15 +53,14 @@ namespace _01.Code.Tower.Towers
                 {
                     Vector3 direction = (target.transform.position - transform.position).normalized;
                     direction = Quaternion.Euler(0,-45,0) * direction;
-                    
+
                     animator.SetFloat(dirXHash, direction.x);
                     animator.SetFloat(dirYHash, direction.z);
-                    
+
                     animator.SetTrigger("ATTACK");
                     Attack(target);
-                    yield return new WaitForSeconds(fireRate);
+                    yield return new WaitForSeconds(fireRate); 
                 }
-
                 yield return null;
             }
         }
@@ -64,22 +68,32 @@ namespace _01.Code.Tower.Towers
         
         public virtual Enemy FindTarget( List<Enemy> enemies)
         {
-            Enemy closest = null;
-            float minDistance = float.MaxValue;
+            Enemy target = null;
             
-            foreach (Enemy enemy in WaveManager.Instance.GetAllEnemies())
+            foreach (Enemy enemy in enemies)
             {
-                if (enemy == null) continue; // null 체크
+                if (enemy == null || enemy.IsDead) continue; // null 체크
 
                 float dist = Vector3.Distance(transform.position, enemy.transform.position);
-                if (dist <= range && dist < minDistance)
+                if (dist <= range)
                 {
-                    closest = enemy;
-                    minDistance = dist;
+                    if (target == null) target = enemy;
+
+                    if (enemy.GetWaypointIdx() > target.GetWaypointIdx())
+                    {
+                        target = enemy;
+                    }
+                    else if (enemy.GetWaypointIdx() == target.GetWaypointIdx())
+                    {
+                        if (enemy.GetDistance() < target.GetDistance())
+                        {
+                            target = enemy;
+                        }
+                    }
                 }
             }
 
-            return closest;
+            return target;
         }
 
         public virtual void Attack(Enemy target) {}
@@ -91,5 +105,31 @@ namespace _01.Code.Tower.Towers
             Gizmos.DrawWireSphere(transform.position, range);
         }
 #endif
+        #endregion
+
+        public void StartDrag()
+        {
+            _isDrag = true;
+            StartCoroutine(DragCoroutine());
+        }
+
+        public void EndDrag()
+        {
+            _isDrag = false;
+            StopAllCoroutines();
+            StartCoroutine(AttackCoroutine());
+            
+        }
+
+        private IEnumerator DragCoroutine()
+        {
+            while (true)
+            {
+                Vector3 screenPos = new Vector3(inputReader.MousePosition.x, inputReader.MousePosition.y, -Camera.main.transform.position.z);
+
+                transform.position = Camera.main.ScreenToWorldPoint(screenPos);
+                yield return null;
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5249146278085473087
+--- !u!1 &2646960686882983019
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,86 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5325106604061562806}
+  - component: {fileID: 9206321660344813965}
   m_Layer: 0
-  m_Name: PlaceTrm
+  m_Name: PlaceTrm (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!4 &5325106604061562806
+--- !u!4 &9206321660344813965
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5249146278085473087}
+  m_GameObject: {fileID: 2646960686882983019}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.27, y: 3.98, z: -0.49}
+  m_LocalPosition: {x: 2.3, y: 1.5, z: -4.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3459942595118110733}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3774173489604825663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1030974878697320471}
+  m_Layer: 0
+  m_Name: PlaceTrm (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1030974878697320471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3774173489604825663}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.53, y: 1.5, z: 0.77}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3459942595118110733}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4178735810988311206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7552322649532561656}
+  m_Layer: 0
+  m_Name: PlaceTrm (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &7552322649532561656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178735810988311206}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.98, y: 1.5, z: 2.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43,6 +105,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlaceTile Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1284134544402482, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284134544402482, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -57,7 +127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.07
       objectReference: {fileID: 0}
     - target: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -65,23 +135,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3.58
       objectReference: {fileID: 0}
     - target: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -104,7 +174,13 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5325106604061562806}
+      addedObject: {fileID: 9206321660344813965}
+    - targetCorrespondingSourceObject: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1030974878697320471}
+    - targetCorrespondingSourceObject: {fileID: 4616283066160582, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7552322649532561656}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1284134544402482, guid: 0437e05764a3d4003acaf7747b1d2aa4, type: 3}
       insertIndex: -1
@@ -132,4 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ef9ff193db4424ac72c906d9e8ab01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PlaceTrm>k__BackingField: {fileID: 5325106604061562806}
+  <PlaceTrm>k__BackingField:
+  - {fileID: 9206321660344813965}
+  - {fileID: 1030974878697320471}
+  - {fileID: 7552322649532561656}
+  _ownTowerBase: []

@@ -125,16 +125,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnHitEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8818154973789601174}
+        m_TargetAssemblyTypeName: _01.Code.UI.HealthBarUI, Assembly-CSharp
+        m_MethodName: SetHealthBar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDeadEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8818154973789601174}
+        m_TargetAssemblyTypeName: _01.Code.UI.HealthBarUI, Assembly-CSharp
+        m_MethodName: EnableHealthBar
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   renderer: {fileID: 5480735663136050460}
   movement: {fileID: 7578105927543331706}
-  enemyData: {fileID: 11400000, guid: cd3fc21bd3a7cbf4ba1427f6a7c273aa, type: 2}
   poolManager: {fileID: 11400000, guid: e2dac2e42aa8dfe4787e58ea776c3283, type: 2}
   goldChannel: {fileID: 11400000, guid: 1f8f30443259d324cab8570d6ed76e92, type: 2}
   systemChannel: {fileID: 11400000, guid: 01eac541c04259145bfcfa1ae116c4ae, type: 2}
+  <enemyData>k__BackingField: {fileID: 11400000, guid: cd3fc21bd3a7cbf4ba1427f6a7c273aa, type: 2}
   <Health>k__BackingField: 0
   <Damage>k__BackingField: 0
   <PoolType>k__BackingField: {fileID: 11400000, guid: 567a2e0a82af7af488eba9550cd33266, type: 2}
@@ -195,7 +219,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: fcc3a4f6f3b75cb48813485bd953ae73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -382,6 +406,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08724fe37a92c4d44acfce4be02e9ec4, type: 3}
+--- !u!114 &8818154973789601174 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5178943968046350076, guid: 08724fe37a92c4d44acfce4be02e9ec4, type: 3}
+  m_PrefabInstance: {fileID: 4449326788062954346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679ec5372df0468bb016eac9166eba36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &9008296462331282457 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4664826258968102771, guid: 08724fe37a92c4d44acfce4be02e9ec4, type: 3}

@@ -11,7 +11,7 @@ namespace _01.Code.Enemies
 {
     public abstract class Enemy : MonoBehaviour, IDamageable, IPoolable
     {
-        public UnityEvent<int> OnHitEvent;
+        public UnityEvent<int, Enemy> OnHitEvent;
         public UnityEvent OnDeadEvent;
         
         [SerializeField] private EnemyRenderer renderer;
@@ -46,7 +46,7 @@ namespace _01.Code.Enemies
         public void TakeDamage(int damage)
         {
             Health = Mathf.Clamp(Health - damage,0, enemyData.maxHealth);
-            OnHitEvent?.Invoke(Health);
+            OnHitEvent?.Invoke(Health,this);
             if (Health <= 0 && !IsDead)
             {
                 IsDead = true;
@@ -59,6 +59,7 @@ namespace _01.Code.Enemies
         public void Arrive()
         {
             systemChannel.RaiseEvent(SystemEvent.LifeDownEvent);
+            IsDead = true;
             poolManager.Push(this);
         }
 
@@ -70,7 +71,6 @@ namespace _01.Code.Enemies
             WaveManager.Instance.UnregisterEnemy(this);
             poolManager.Push(this);
         }
-        
 
         #region Pool
         public float GetDistance() => movement.GetDistance();

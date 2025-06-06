@@ -24,7 +24,7 @@ namespace _01.Code.Tower
 
         [SerializeField] private GameEventChannelSO goldChannel;
 
-
+        [SerializeField] private LayerMask whatIsPlaceTile;
         private Color _enableColor = new Color(1, 1, 1, 1);
         private Color _disableColor = new Color(1, 1, 1, 0.4f);
         
@@ -68,7 +68,7 @@ namespace _01.Code.Tower
             Camera mainCam = Camera.main;
             Ray camRay = mainCam.ScreenPointToRay(inputReader.MousePosition);
 
-            if (Physics.Raycast(camRay, out RaycastHit hit, Mathf.Infinity))
+            if (Physics.Raycast(camRay, out RaycastHit hit, Mathf.Infinity, whatIsPlaceTile))
             {
                 if (hit.collider.TryGetComponent(out PlaceTile placeTile))
                 {

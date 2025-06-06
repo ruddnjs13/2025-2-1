@@ -169,8 +169,12 @@ MonoBehaviour:
   type: 0
   preview: {fileID: 1955229780875741650}
   Visual: {fileID: 942021973239640121}
+  priceText: {fileID: 0}
   necessaryGold: 0
   goldChannel: {fileID: 11400000, guid: 1f8f30443259d324cab8570d6ed76e92, type: 2}
+  whatIsPlaceTile:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &6191770787740119178
 PrefabInstance:
   m_ObjectHideFlags: 0

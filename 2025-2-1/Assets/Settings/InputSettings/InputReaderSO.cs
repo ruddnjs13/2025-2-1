@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -8,7 +9,8 @@ namespace Settings.InputSettings
     [CreateAssetMenu(fileName = "InputReaderSO", menuName = "SO/InputReader", order = 0)]
     public class InputReaderSO : ScriptableObject, Controls.IPlayerActions
     {
-        public Action<bool> OnSelectEvent;
+        public Action<bool> OnDragEvent;
+        
         
         private Controls _controls;
 
@@ -30,19 +32,19 @@ namespace Settings.InputSettings
             _controls.Player.Disable();
         }
 
-        public void OnSelect(InputAction.CallbackContext context)
+        public void OnDrag(InputAction.CallbackContext context)
         {
-            if (context.performed)
-                OnSelectEvent?.Invoke(true);
+            if(context.performed)
+                OnDragEvent?.Invoke(true);
             else if(context.canceled)
-                OnSelectEvent?.Invoke(false);
+                OnDragEvent?.Invoke(false);
+            
+                
         }
 
-        public void OnLook(InputAction.CallbackContext context)
+        public void OnDragPosition(InputAction.CallbackContext context)
         {
             MousePosition = context.ReadValue<Vector2>();
         }
-        
-        
     }
 }
