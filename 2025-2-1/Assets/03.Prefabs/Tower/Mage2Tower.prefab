@@ -394,6 +394,42 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 198197100033972480, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198255189904805978, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198311681815850752, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198351679270433280, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198458742194968584, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198492922696534948, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198582137516278310, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198870089586527774, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198873790509897146, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 199091050673997060, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1

@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2cddd8dafa8432b920d53ef8a480710, type: 3}
-  m_Name: OrcData
+  m_Script: {fileID: 11500000, guid: 839fcb1266e05ce4f9b82007201059f7, type: 3}
+  m_Name: EnemyGhost
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  moveSpeed: 2
-  damage: 1
-  getGold: 20
+  poolType: {fileID: 11400000, guid: d3e1fda6eeeaee547bf04f53348c5fc6, type: 2}
+  prefab: {fileID: 4757796814602261813, guid: cab8b48bf9acd864f99d0660a6719355, type: 3}
+  initCount: 10

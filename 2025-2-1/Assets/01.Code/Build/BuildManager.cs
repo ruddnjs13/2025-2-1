@@ -55,11 +55,7 @@ public class BuildManager : MonoSingleton<BuildManager>
                     return;
                 }
 
-                if (_selectedTile._ownTowerBase.Count + prevTile._ownTowerBase.Count > 3)
-                {
-                    Cancel();
-                    return;
-                }
+                
 
                 foreach (TowerBase ownTower in tileDic[_selectedTower]._ownTowerBase) 
                 {
@@ -68,11 +64,6 @@ public class BuildManager : MonoSingleton<BuildManager>
                 if (_selectedTile._ownTowerBase.Count <= 0)
                 {
                     MoveTower(_selectedTile,_selectedTower);
-                }
-                else if (_selectedTower.towerType == _selectedTile._ownTowerBase[0].towerType)
-                {
-                    MergeTower();
-                    prevTile.ClearTower();
                 }
                 else if (_selectedTower.towerType != _selectedTile._ownTowerBase[0].towerType)
                 {
@@ -86,6 +77,16 @@ public class BuildManager : MonoSingleton<BuildManager>
                         tileDic[tower] = _selectedTile;
                     }
                     _selectedTile.SwapTower(prevTile);
+                }
+                else if (_selectedTile._ownTowerBase.Count + prevTile._ownTowerBase.Count > 3)
+                {
+                    Cancel();
+                    return;
+                }
+                else if (_selectedTower.towerType == _selectedTile._ownTowerBase[0].towerType)
+                {
+                    MergeTower();
+                    prevTile.ClearTower();
                 }
                 
             }

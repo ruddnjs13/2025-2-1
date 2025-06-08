@@ -11,6 +11,7 @@ namespace _01.Code.Managers
     public class WaveManager : MonoSingleton<WaveManager>
     {
         public UnityEvent<int> OnWaveStart;
+        public UnityEvent OnWaveEnd;
         
         [SerializeField] private PoolManagerSO poolManager;
         [SerializeField] private List<Enemy> enemies = new List<Enemy>();
@@ -35,6 +36,17 @@ namespace _01.Code.Managers
                     yield return wait;
                 }
                 yield return new WaitForSeconds(waveInfos[i].nextWaveDelay);
+            }
+
+            while (true)
+            {
+                yield return new WaitForSeconds(0.2f);
+                if (enemies.Count <= 0)
+                {
+                    yield return new WaitForSeconds(2);
+                    OnWaveEnd?.Invoke();
+                    break;
+                }
             }
         }
 

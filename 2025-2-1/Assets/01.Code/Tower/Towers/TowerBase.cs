@@ -110,6 +110,7 @@ namespace _01.Code.Tower.Towers
         public void StartDrag()
         {
             _isDrag = true;
+            StopAllCoroutines();
             StartCoroutine(DragCoroutine());
         }
 
