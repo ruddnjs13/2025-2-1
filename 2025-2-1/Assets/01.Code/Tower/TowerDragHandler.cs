@@ -72,6 +72,11 @@ namespace _01.Code.Tower
             {
                 if (hit.collider.TryGetComponent(out PlaceTile placeTile))
                 {
+                    if (placeTile._ownTowerBase.Count > 0 && placeTile._ownTowerBase[0].towerType != type)
+                    {
+                        preview.SetActive(false);
+                        return;
+                    }
                     BuildManager.Instance.BuildTower(placeTile,type,necessaryGold);
                 }
             }

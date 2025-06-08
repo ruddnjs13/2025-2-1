@@ -15,7 +15,7 @@ namespace _01.Code.Tower.Towers
 {
     public enum TowerType
     {
-        ARCHER = 0,MAGE = 1
+        ARCHER = 0,MAGE = 1, KNIGHT = 2, MAGE2 =3
     }
     
     public abstract class TowerBase : MonoBehaviour, ITargeting, IAttack
@@ -24,7 +24,7 @@ namespace _01.Code.Tower.Towers
         
         public float range = 5f;
         public float fireRate = 2f;
-        public int damage = 2;
+        public int damage = 10;
         [SerializeField] protected Transform firePos;
         [SerializeField] protected PoolTypeSO projectileType;
         [SerializeField] protected PoolManagerSO poolManager;

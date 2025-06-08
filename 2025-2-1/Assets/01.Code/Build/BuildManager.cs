@@ -56,7 +56,10 @@ public class BuildManager : MonoSingleton<BuildManager>
                 }
 
                 if (_selectedTile._ownTowerBase.Count + prevTile._ownTowerBase.Count > 3)
+                {
                     Cancel();
+                    return;
+                }
 
                 foreach (TowerBase ownTower in tileDic[_selectedTower]._ownTowerBase) 
                 {
@@ -66,7 +69,6 @@ public class BuildManager : MonoSingleton<BuildManager>
                 {
                     MoveTower(_selectedTile,_selectedTower);
                 }
-
                 else if (_selectedTower.towerType == _selectedTile._ownTowerBase[0].towerType)
                 {
                     MergeTower();
