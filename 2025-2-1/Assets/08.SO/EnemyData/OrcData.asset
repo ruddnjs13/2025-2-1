@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2cddd8dafa8432b920d53ef8a480710, type: 3}
   m_Name: OrcData
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  moveSpeed: 2
-  damage: 1
-  getGold: 20
+  maxHealth: 180
+  moveSpeed: 2.4
+  damage: 2
+  getGold: 15

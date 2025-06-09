@@ -101,12 +101,11 @@ MonoBehaviour:
   towerType: 0
   range: 6
   fireRate: 1
-  damage: 10
+  towerData: {fileID: 11400000, guid: a24f3ede232aab94d8972f680c5aa317, type: 2}
   firePos: {fileID: 7462567089728270702}
   projectileType: {fileID: 11400000, guid: e416c67329445364da25ae5e60201cf2, type: 2}
   poolManager: {fileID: 11400000, guid: e2dac2e42aa8dfe4787e58ea776c3283, type: 2}
   animator: {fileID: 2368762923464015953}
-  animationTrigger: {fileID: 4286967746841763384}
   inputReader: {fileID: 11400000, guid: 59ea4e623bbace841bcc60a6ceb05cfa, type: 2}
 --- !u!1 &6930238059875219091
 GameObject:

@@ -9886,7 +9886,7 @@ MonoBehaviour:
   towerType: 2
   range: 4
   fireRate: 3.4
-  damage: 15
+  towerData: {fileID: 11400000, guid: af199250ed91644438c86d07c9ccbfc4, type: 2}
   firePos: {fileID: 8690840199761258172}
   projectileType: {fileID: 0}
   poolManager: {fileID: 11400000, guid: e2dac2e42aa8dfe4787e58ea776c3283, type: 2}

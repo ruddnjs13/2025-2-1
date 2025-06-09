@@ -30,9 +30,11 @@ namespace _01.Code.Enemies
         public bool IsDead { get; private set; } = false;
         
         public void ResetEnemy(List<Transform> wayPoints)
-        {
-            movement.SetWayPoints(wayPoints);
+        {            
+            movement.SetStop(false);
             InitEnemy(enemyData.maxHealth, enemyData.damage, enemyData.moveSpeed);
+            movement.SetWayPoints(wayPoints);
+            movement.EnableEnemy();
         }
 
         public void InitEnemy(int maxHealth, int damage, float moveSpeed)
@@ -40,14 +42,15 @@ namespace _01.Code.Enemies
             Health = maxHealth;
             Damage = damage;
             movement.SetSpeed(moveSpeed);
-            movement.EnableEnemy();
         }
 
         public void TakeDamage(int damage)
         {
+            if (IsDead) return;
+            renderer.Hit();
             Health = Mathf.Clamp(Health - damage,0, enemyData.maxHealth);
             OnHitEvent?.Invoke(Health,this);
-            if (Health <= 0 && !IsDead)
+            if (Health <= 0)
             {
                 IsDead = true;
                 OnDeadEvent?.Invoke();
@@ -60,6 +63,7 @@ namespace _01.Code.Enemies
         {
             systemChannel.RaiseEvent(SystemEvent.LifeDownEvent);
             IsDead = true;
+            movement.SetStop(true);
             poolManager.Push(this);
         }
 
@@ -87,7 +91,6 @@ namespace _01.Code.Enemies
         public void ResetItem()
         {
             IsDead = false;
-            movement.SetStop(false);
         }
         #endregion
     }

@@ -19,7 +19,7 @@ namespace _01.Code.Tower.Towers
             {
                 if(hit.TryGetComponent(out Enemy enemy))
                 {
-                    enemy.TakeDamage(damage);
+                    enemy.TakeDamage(towerData.damage);
                 }
             }
         }

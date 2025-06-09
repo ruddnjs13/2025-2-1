@@ -14,7 +14,7 @@ namespace _01.Code.Enemies
         
         [SerializeField] private List<Transform> wayPoints;
         [SerializeField] private EnemyRenderer enemyRenderer;
-        private int _currentIndex = 0;
+        [SerializeField]private int _currentIndex = 0;
         
         private void Awake()
         {
@@ -34,7 +34,6 @@ namespace _01.Code.Enemies
             _currentIndex = 0;
             _navAgent.SetDestination(wayPoints[_currentIndex++].position);
         }
-
 
         public void SetSpeed(float speed) => _navAgent.speed = speed;
         public void SetStop(bool isStop) => _navAgent.isStopped = isStop;

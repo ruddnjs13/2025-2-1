@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2cddd8dafa8432b920d53ef8a480710, type: 3}
   m_Name: GhostData
   m_EditorClassIdentifier: 
-  maxHealth: 60
-  moveSpeed: 3.5
+  maxHealth: 70
+  moveSpeed: 4.2
   damage: 1
-  getGold: 15
+  getGold: 10

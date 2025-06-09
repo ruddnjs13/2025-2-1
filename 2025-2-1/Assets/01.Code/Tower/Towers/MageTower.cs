@@ -13,7 +13,7 @@ namespace _01.Code.Tower.Towers
             EnergyBall energyBall = poolManager.Pop(projectileType) as EnergyBall;
             energyBall.transform.position = firePos.position;
             
-            energyBall.SetTargetAndFire(target, damage);
+            energyBall.SetTargetAndFire(target, towerData.damage);
         }
     }
 }

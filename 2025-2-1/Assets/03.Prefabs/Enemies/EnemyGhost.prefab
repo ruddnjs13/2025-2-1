@@ -297,7 +297,7 @@ Transform:
   m_GameObject: {fileID: 4757796814602261813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.319, z: -2.43}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -356,6 +356,7 @@ MonoBehaviour:
         m_CallState: 2
   wayPoints: []
   enemyRenderer: {fileID: 134322701194882121}
+  _currentIndex: 0
 --- !u!136 &1735088115653912152
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -487,7 +488,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: fcc3a4f6f3b75cb48813485bd953ae73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -553,3 +554,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8a9c9ae5174e778801218a2df6e4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkTime: 0.2

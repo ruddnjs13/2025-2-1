@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 916581807186982156}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.3, y: 1.319, z: -5.98}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -88,6 +88,7 @@ MonoBehaviour:
         m_CallState: 2
   wayPoints: []
   enemyRenderer: {fileID: 5480735663136050460}
+  _currentIndex: 0
 --- !u!136 &394852880771218234
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -285,6 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8a9c9ae5174e778801218a2df6e4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkTime: 0.2
 --- !u!1001 &4449326788062954346
 PrefabInstance:
   m_ObjectHideFlags: 0

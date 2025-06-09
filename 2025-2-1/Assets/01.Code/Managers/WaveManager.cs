@@ -55,8 +55,8 @@ namespace _01.Code.Managers
             for (int i = 0; i < spawnData.spawnCount; i++)
             {
                 Enemy enemy = poolManager.Pop(spawnData.enemyType) as Enemy;
-                enemy.ResetEnemy(way);
                 enemy.transform.position = spawnTrm.position;
+                enemy.ResetEnemy(way);
                 RegisterEnemy(enemy);
                 yield return new WaitForSeconds(spawnData.spawnInterval);
             }
@@ -72,6 +72,7 @@ namespace _01.Code.Managers
 
         public void UnregisterEnemy(Enemy enemy)
         {
+            enemy.transform.position = spawnTrm.position;
             if (enemies.Contains(enemy))
                 enemies.Remove(enemy);
         }

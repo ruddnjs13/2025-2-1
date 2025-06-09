@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b73cc3f141cb4602a81730dba70c6364, type: 3}
+  m_Name: Stage3_Wave2
+  m_EditorClassIdentifier: 
+  nextWaveDelay: 12
+  spawnGroupList:
+  - {fileID: 11400000, guid: 50aea64b86d2fc54c8f29ab81ba6ba30, type: 2}
+  - {fileID: 11400000, guid: 0814d6f25d90bb84085ca496f672da00, type: 2}
+  - {fileID: 11400000, guid: ae7b357366af1dd4a96eead17affb067, type: 2}
+  - {fileID: 11400000, guid: 22f8526536fdf2b478cf67212918f8ba, type: 2}

@@ -71,7 +71,7 @@ MonoBehaviour:
   towerType: 3
   range: 6
   fireRate: 4.5
-  damage: 25
+  towerData: {fileID: 11400000, guid: 71411ba48da1a0549bdf60665eb42c55, type: 2}
   firePos: {fileID: 510283538601460685}
   projectileType: {fileID: 0}
   poolManager: {fileID: 11400000, guid: e2dac2e42aa8dfe4787e58ea776c3283, type: 2}

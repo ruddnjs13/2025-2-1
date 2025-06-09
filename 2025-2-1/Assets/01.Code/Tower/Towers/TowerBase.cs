@@ -24,7 +24,7 @@ namespace _01.Code.Tower.Towers
         
         public float range = 5f;
         public float fireRate = 2f;
-        public int damage = 10;
+        [SerializeField] protected towerDataSO towerData;
         [SerializeField] protected Transform firePos;
         [SerializeField] protected PoolTypeSO projectileType;
         [SerializeField] protected PoolManagerSO poolManager;
@@ -45,6 +45,8 @@ namespace _01.Code.Tower.Towers
 
         private IEnumerator  AttackCoroutine()
         {
+            WaitForSeconds wait = new WaitForSeconds(fireRate);
+            
             yield return new WaitForSeconds(fireRate);
             while (true)
             {
@@ -59,7 +61,7 @@ namespace _01.Code.Tower.Towers
 
                     animator.SetTrigger("ATTACK");
                     Attack(target);
-                    yield return new WaitForSeconds(fireRate); 
+                    yield return wait;
                 }
                 yield return null;
             }

@@ -15,7 +15,7 @@ namespace _01.Code.Tower.Towers
             Arrow arrow = poolManager.Pop(projectileType) as Arrow;
             arrow.transform.position = firePos.position;
             
-            arrow.SetTargetAndFire(target, damage);
+            arrow.SetTargetAndFire(target, towerData.damage);
         }
     }
 }
