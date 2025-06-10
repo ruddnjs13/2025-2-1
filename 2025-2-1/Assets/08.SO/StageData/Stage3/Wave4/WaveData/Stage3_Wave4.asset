@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextWaveDelay: 12
   spawnGroupList:
-  - {fileID: 11400000, guid: 8138e64cf57d43542a59fd8df2e22f4f, type: 2}
-  - {fileID: 11400000, guid: 43cc227a4ce39264aa83b18b8d2b4da2, type: 2}
-  - {fileID: 11400000, guid: 56a5c09b05c19ba469f5ed6b01bff5f5, type: 2}
-  - {fileID: 11400000, guid: ffee20e217aaf004491afa35a038305d, type: 2}
+  - {fileID: 11400000, guid: 18cb310a863dc2d41adb8fac03a20393, type: 2}
+  - {fileID: 11400000, guid: 91b2b0163f1ade54282694743f705b96, type: 2}
+  - {fileID: 11400000, guid: 782b13074c3b1184683ced548e6e71bc, type: 2}
+  - {fileID: 11400000, guid: 7295317e55b46e64d97347617322f639, type: 2}

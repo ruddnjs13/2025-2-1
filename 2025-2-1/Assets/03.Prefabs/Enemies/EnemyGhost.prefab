@@ -356,7 +356,7 @@ MonoBehaviour:
         m_CallState: 2
   wayPoints: []
   enemyRenderer: {fileID: 134322701194882121}
-  _currentIndex: 0
+  <_currentIndex>k__BackingField: 0
 --- !u!136 &1735088115653912152
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   renderer: {fileID: 134322701194882121}
-  movement: {fileID: 3464952973595338211}
+  <movement>k__BackingField: {fileID: 3464952973595338211}
   poolManager: {fileID: 11400000, guid: e2dac2e42aa8dfe4787e58ea776c3283, type: 2}
   goldChannel: {fileID: 11400000, guid: 1f8f30443259d324cab8570d6ed76e92, type: 2}
   systemChannel: {fileID: 11400000, guid: 01eac541c04259145bfcfa1ae116c4ae, type: 2}

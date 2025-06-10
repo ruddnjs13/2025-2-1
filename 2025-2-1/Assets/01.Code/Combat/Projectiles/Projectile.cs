@@ -6,9 +6,9 @@ namespace _01.Code.Combat.Projectiles
 {
     public abstract class Projectile : MonoBehaviour , IPoolable
     {
-        [SerializeField] private PoolManagerSO poolManager;
+        [SerializeField] protected PoolManagerSO poolManager;
         [SerializeField] protected float speed;
-        [SerializeField] private int damage;
+        [SerializeField] protected int damage;
         [SerializeField] protected LayerMask whatIsEnemy;
         protected Enemy target;
 
@@ -18,7 +18,7 @@ namespace _01.Code.Combat.Projectiles
         {
             if (isFire)
             {
-                if (target == null)
+                if (target == null || target.IsDead)
                 {
                     OnTargetLost();
                 }

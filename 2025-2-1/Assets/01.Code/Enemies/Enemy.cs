@@ -14,20 +14,20 @@ namespace _01.Code.Enemies
         public UnityEvent<int, Enemy> OnHitEvent;
         public UnityEvent OnDeadEvent;
         
-        [SerializeField] private EnemyRenderer renderer;
-        [SerializeField] private EnemyMovement movement;
-        [SerializeField] private PoolManagerSO poolManager;
-        [SerializeField] private GameEventChannelSO goldChannel;
-        [SerializeField] private GameEventChannelSO systemChannel;
+        [SerializeField] protected EnemyRenderer renderer;
+        [field:SerializeField] public EnemyMovement movement { get; private set; }
+        [SerializeField] protected PoolManagerSO poolManager;
+        [SerializeField] protected GameEventChannelSO goldChannel;
+        [SerializeField] protected GameEventChannelSO systemChannel;
         [field:SerializeField] public EnemyDataSO enemyData { get; private set; }
         
         [Header("EnemyStat")]
-        [field:SerializeField] public int Health { get; private set; }
+        [field:SerializeField] public int Health { get; protected set; }
         [field:SerializeField] public int Damage { get; private set; }
 
         private readonly int _deadHash = Animator.StringToHash("DEAD");
 
-        public bool IsDead { get; private set; } = false;
+        public bool IsDead { get; protected set; } = false;
         
         public void ResetEnemy(List<Transform> wayPoints)
         {            
@@ -44,7 +44,7 @@ namespace _01.Code.Enemies
             movement.SetSpeed(moveSpeed);
         }
 
-        public void TakeDamage(int damage)
+        public virtual void TakeDamage(int damage)
         {
             if (IsDead) return;
             renderer.Hit();
@@ -64,15 +64,17 @@ namespace _01.Code.Enemies
             systemChannel.RaiseEvent(SystemEvent.LifeDownEvent);
             IsDead = true;
             movement.SetStop(true);
+            movement.resetPosition();
             poolManager.Push(this);
         }
 
-        private IEnumerator DeadCoroutine()
+        protected virtual IEnumerator DeadCoroutine()
         {
             movement.SetStop(true);
             renderer.SetParam(_deadHash);
             yield return new WaitForSeconds(3f);
             WaveManager.Instance.UnregisterEnemy(this);
+            movement.resetPosition();
             poolManager.Push(this);
         }
 

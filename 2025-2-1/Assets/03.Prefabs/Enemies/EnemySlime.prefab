@@ -163,7 +163,7 @@ MonoBehaviour:
         m_CallState: 2
   wayPoints: []
   enemyRenderer: {fileID: 2434545642521942424}
-  _currentIndex: 0
+  <_currentIndex>k__BackingField: 0
 --- !u!136 &69212244150487309
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -230,14 +230,15 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   renderer: {fileID: 2434545642521942424}
-  movement: {fileID: 6427899674947089345}
+  <movement>k__BackingField: {fileID: 6427899674947089345}
   poolManager: {fileID: 11400000, guid: e2dac2e42aa8dfe4787e58ea776c3283, type: 2}
   goldChannel: {fileID: 11400000, guid: 1f8f30443259d324cab8570d6ed76e92, type: 2}
   systemChannel: {fileID: 11400000, guid: 01eac541c04259145bfcfa1ae116c4ae, type: 2}
   <enemyData>k__BackingField: {fileID: 11400000, guid: f6e35c81517846f408a615bf16672a36, type: 2}
   <Health>k__BackingField: 0
   <Damage>k__BackingField: 0
-  <PoolType>k__BackingField: {fileID: 0}
+  <PoolType>k__BackingField: {fileID: 11400000, guid: 740a4b248e2fb4b4280689f15c871f39, type: 2}
+  babySlimeType: {fileID: 11400000, guid: c135b5a6f3a1b4a4493fa4a5f827e882, type: 2}
 --- !u!1 &2975656138005002680
 GameObject:
   m_ObjectHideFlags: 0

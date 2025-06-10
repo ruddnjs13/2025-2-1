@@ -9896,6 +9896,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   slashEffect: {fileID: 7185666310641208580}
+  attackRadius: 3
 --- !u!1 &8403708435717221091
 GameObject:
   m_ObjectHideFlags: 0

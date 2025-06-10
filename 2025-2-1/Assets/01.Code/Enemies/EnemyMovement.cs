@@ -14,7 +14,7 @@ namespace _01.Code.Enemies
         
         [SerializeField] private List<Transform> wayPoints;
         [SerializeField] private EnemyRenderer enemyRenderer;
-        [SerializeField]private int _currentIndex = 0;
+        [field: SerializeField] public int _currentIndex { get; private set; } = 0;
         
         private void Awake()
         {
@@ -27,6 +27,17 @@ namespace _01.Code.Enemies
         public void SetWayPoints(List<Transform> wayPoints)
         {
             this.wayPoints = wayPoints;
+        }
+
+        public void resetPosition()
+        {
+            transform.position = wayPoints[0].position;
+        }
+
+        public void SetIdx(int idx)
+        {
+            _currentIndex = idx;
+            _navAgent.SetDestination(wayPoints[_currentIndex].position);
         }
 
         public void EnableEnemy()

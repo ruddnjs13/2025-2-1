@@ -16,7 +16,7 @@ namespace _01.Code.Managers
         [SerializeField] private PoolManagerSO poolManager;
         [SerializeField] private List<Enemy> enemies = new List<Enemy>();
         [SerializeField] private Transform spawnTrm;
-        [SerializeField] private List<Transform> way = new List<Transform>();
+        [field:SerializeField] public List<Transform> WayPoints { get; private set; }
         [SerializeField] private List<WaveDataSO> waveInfos = new List<WaveDataSO>();
         private void Start()
         {
@@ -56,7 +56,7 @@ namespace _01.Code.Managers
             {
                 Enemy enemy = poolManager.Pop(spawnData.enemyType) as Enemy;
                 enemy.transform.position = spawnTrm.position;
-                enemy.ResetEnemy(way);
+                enemy.ResetEnemy(WayPoints);
                 RegisterEnemy(enemy);
                 yield return new WaitForSeconds(spawnData.spawnInterval);
             }
