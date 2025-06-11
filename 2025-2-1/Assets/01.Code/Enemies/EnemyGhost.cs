@@ -15,8 +15,7 @@ namespace _01.Code.Enemies
 
         private WaitForSeconds wait;
 
-        private readonly int enemyLayer = 7;
-        private readonly int ignoreLayer = 10;
+        
 
 
         private void Start()

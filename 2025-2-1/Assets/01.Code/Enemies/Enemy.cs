@@ -30,6 +30,9 @@ namespace _01.Code.Enemies
 
         public bool IsDead { get; protected set; } = false;
         
+        protected readonly int enemyLayer = 7;
+        protected readonly int ignoreLayer = 10;
+        
         public void ResetEnemy(List<Transform> wayPoints)
         {            
             movement.SetStop(false);
@@ -71,6 +74,7 @@ namespace _01.Code.Enemies
 
         protected virtual IEnumerator DeadCoroutine()
         {
+            gameObject.layer = ignoreLayer;
             movement.SetStop(true);
             renderer.SetParam(_deadHash);
             yield return new WaitForSeconds(3f);
@@ -94,6 +98,7 @@ namespace _01.Code.Enemies
         public virtual void ResetItem()
         {
             IsDead = false;
+            gameObject.layer = enemyLayer;
         }
         #endregion
     }

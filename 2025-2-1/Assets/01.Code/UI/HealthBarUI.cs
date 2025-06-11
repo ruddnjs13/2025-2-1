@@ -10,6 +10,11 @@ namespace _01.Code.UI
         [SerializeField] private Image border;
         [SerializeField] private Image fill;
 
+
+        public void ResetHealthBar()
+        {
+            fill.fillAmount = 1f;
+        }
         private void OnEnable()
         {
             fill.fillAmount = 1;
