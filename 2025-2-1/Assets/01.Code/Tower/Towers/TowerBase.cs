@@ -47,7 +47,7 @@ namespace _01.Code.Tower.Towers
         {
             WaitForSeconds wait = new WaitForSeconds(fireRate);
             
-            yield return new WaitForSeconds(fireRate);
+            yield return new WaitForSeconds(fireRate/2);
             while (true)
             {
                 Enemy target = FindTarget(WaveManager.Instance.GetAllEnemies());

@@ -25,7 +25,8 @@ namespace _01.Code.Enemies
         [field:SerializeField] public int Health { get; protected set; }
         [field:SerializeField] public int Damage { get; private set; }
 
-        private readonly int _deadHash = Animator.StringToHash("DEAD");
+        protected readonly int _deadHash = Animator.StringToHash("DEAD");
+        protected readonly int _moveHash = Animator.StringToHash("MOVE");
 
         public bool IsDead { get; protected set; } = false;
         
@@ -90,7 +91,7 @@ namespace _01.Code.Enemies
             _myPool = pool;
         }
 
-        public void ResetItem()
+        public virtual void ResetItem()
         {
             IsDead = false;
         }
