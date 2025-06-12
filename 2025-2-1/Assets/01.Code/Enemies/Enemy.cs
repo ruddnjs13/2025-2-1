@@ -65,6 +65,7 @@ namespace _01.Code.Enemies
 
         public void Arrive()
         {
+            WaveManager.Instance.UnregisterEnemy(this);
             systemChannel.RaiseEvent(SystemEvent.LifeDownEvent);
             IsDead = true;
             movement.SetStop(true);

@@ -44,7 +44,6 @@ namespace _01.Code.Managers
                 yield return new WaitForSeconds(0.2f);
                 if (enemies.Count <= 0)
                 {
-                    yield return new WaitForSeconds(2);
                     OnWaveEnd?.Invoke();
                     break;
                 }
