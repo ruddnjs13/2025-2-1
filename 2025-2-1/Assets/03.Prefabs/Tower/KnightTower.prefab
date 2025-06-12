@@ -9885,7 +9885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 2
   range: 4
-  fireRate: 3.4
+  fireRate: 2.8
   towerData: {fileID: 11400000, guid: af199250ed91644438c86d07c9ccbfc4, type: 2}
   firePos: {fileID: 8690840199761258172}
   projectileType: {fileID: 0}

@@ -28,6 +28,7 @@ namespace _01.Code.Managers
             for (int i = 0; i < waveInfos.Count; i++)
             {
                 OnWaveStart?.Invoke(i);
+                yield return new WaitForSeconds(4f);
                 for (int j = 0; j < waveInfos[i].spawnGroupList.Count; j++)
                 {
                     WaitForSeconds wait = new WaitForSeconds(waveInfos[i].spawnGroupList[j].spawnInterval * 

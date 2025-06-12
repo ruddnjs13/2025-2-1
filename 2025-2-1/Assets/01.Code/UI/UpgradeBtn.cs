@@ -27,7 +27,7 @@ namespace _01.Code.UI
                 goldChannel.RaiseEvent(GoldEvent.spendGolEvent.Initialize(data.priceList[upgradeIdx]));
                 
 
-                data.damage = data.damageList[upgradeIdx];
+                data.damage = data.damageList[upgradeIdx+1];
                 upgradeIdx++;
 
                 if (upgradeIdx > data.maxUpgradeCount - 1)
@@ -35,7 +35,7 @@ namespace _01.Code.UI
                     gameObject.SetActive(false);
                     return;
                 }
-                priceText.text = data.priceList[upgradeIdx].ToString();
+                priceText.text = data.priceList[upgradeIdx+1].ToString();
             }
         }
     }

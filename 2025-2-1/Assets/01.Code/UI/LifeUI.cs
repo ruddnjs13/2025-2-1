@@ -19,6 +19,11 @@ namespace _01.Code.UI
             systemChannel.AddListener<LifeDownEvent>(HandleLifeDown);
         }
 
+        private void OnDestroy()
+        {
+            DOTween.Kill(this);
+        }
+
         private void HandleLifeDown(LifeDownEvent evt)
         {
             DOVirtual.DelayedCall(0.2f,() =>

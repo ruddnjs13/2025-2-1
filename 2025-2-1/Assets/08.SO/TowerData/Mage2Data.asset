@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxUpgradeCount: 3
   priceList: 6400000096000000c8000000
-  damageList: 0f000000140000001e000000
-  damage: 25
-  skillEnabled: 0
+  damageList: 0f00000012000000150000001e000000
+  damage: 15

@@ -11,21 +11,26 @@ namespace _01.Code.UI
 
         private Vector2 startPosition;
 
-        private void Start()
+        private void OnEnable()
         {
             startPosition = wavePanel.anchoredPosition;
         }
 
+
         public void PopUpWavePanel(int waveIndex)
         {
-            Debug.Log("웨이브 스타트");
+            if(wavePanel == null) return;
+            
             Sequence sequence =  DOTween.Sequence();
 
             waveText.text = $"Wave {waveIndex + 1}";
 
             sequence.Append(wavePanel.DOAnchorPosY(startPosition.y - 300, 1f).SetEase(Ease.OutExpo))
                 .AppendInterval(2)
-                .Append(wavePanel.DOAnchorPosY(startPosition.y + 300, 2f).SetEase(Ease.OutExpo));
+                .Append(wavePanel.DOAnchorPosY(startPosition.y + 300, 0.6f).SetEase(Ease.OutExpo))
+                .SetUpdate(true);
+
+            sequence.SetLink(gameObject);
         }
     }
 }

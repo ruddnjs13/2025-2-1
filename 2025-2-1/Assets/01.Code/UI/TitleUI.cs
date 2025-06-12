@@ -15,7 +15,7 @@ public enum BtnType
     Quit,
 }
 
-public class UIManager : MonoSingleton<UIManager>
+public class TitleUI : MonoSingleton<TitleUI>
 {
     [SerializeField] private SettingUI _settingUI;
     [SerializeField] private GameObject _titleUI;
@@ -33,7 +33,7 @@ public class UIManager : MonoSingleton<UIManager>
         switch (_btnType)
         {
             case BtnType.Start: 
-                SceneManager.LoadScene(6);
+                SceneManager.LoadScene(1);
                 break;
             case BtnType.Setting:
                 _settingUI.Setup(false);

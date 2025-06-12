@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 3
   range: 6
-  fireRate: 4.2
+  fireRate: 3
   towerData: {fileID: 11400000, guid: 71411ba48da1a0549bdf60665eb42c55, type: 2}
   firePos: {fileID: 510283538601460685}
   projectileType: {fileID: 11400000, guid: dc0a55f1102ccbc4fbdc24946bc5653c, type: 2}

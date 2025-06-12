@@ -9,13 +9,17 @@ namespace _01.Code.Tower
     {
         public int maxUpgradeCount = 3;
         public List<int> priceList = new List<int>(3); 
-        public List<int> damageList = new List<int>(3); 
+        public List<int> damageList = new List<int>(4); 
         public int damage;
-        public bool skillEnabled;
 
-        private void OnEnable()
+        public void ResetData()
         {
             damage = damageList[0];
+        }
+        
+        private void OnEnable()
+        {
+            damage = damageList[1];
         }
     }
 }

@@ -11,6 +11,8 @@ namespace _01.Code.Managers
 
         [SerializeField] private GameEventChannelSO systemChannel;
         [SerializeField] private GameObject gameOverMenu;
+        [SerializeField] private GameObject buildPanel;
+        [SerializeField] private GameObject playerPanel;
         
         private void Start()
         {
@@ -30,6 +32,8 @@ namespace _01.Code.Managers
         {
             Time.timeScale = 0;
             gameOverMenu.SetActive(true);
+            playerPanel.SetActive(false);
+            buildPanel.SetActive(false);
         }
     }
 }

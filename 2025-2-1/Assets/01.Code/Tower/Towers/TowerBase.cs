@@ -34,9 +34,6 @@ namespace _01.Code.Tower.Towers
         private readonly int dirXHash = Animator.StringToHash("DirX");
         private readonly int dirYHash = Animator.StringToHash("DirY");
 
-        private bool _isDrag;
-
-
         #region AttackLogic
         public void EnableTower()
         {
@@ -111,14 +108,12 @@ namespace _01.Code.Tower.Towers
 
         public void StartDrag()
         {
-            _isDrag = true;
             StopAllCoroutines();
             StartCoroutine(DragCoroutine());
         }
 
         public void EndDrag()
         {
-            _isDrag = false;
             StopAllCoroutines();
             StartCoroutine(AttackCoroutine());
             

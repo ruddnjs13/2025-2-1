@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Feedbacks;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,9 +20,14 @@ public class BtnClick : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
         originScale = transform.localScale;
     }
 
+    private void OnDestroy()
+    {
+        DOTween.Kill(this);
+    }
+
     public void BtnClicked()
     {
-        UIManager.Instance.SetBtnAndClick(btnType);        
+        TitleUI.Instance.SetBtnAndClick(btnType);        
         transform.localScale = originScale;
 
     }
