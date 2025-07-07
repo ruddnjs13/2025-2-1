@@ -14,6 +14,13 @@ namespace Settings.InputSettings
         
         private Controls _controls;
 
+        public void RockInput(bool isEnable)
+        {
+            if(isEnable)
+                _controls.Player.Enable();
+            else
+                _controls.Player.Disable();
+        }
         public Vector2 MousePosition { get; private set; }
         
         private void OnEnable()

@@ -45,6 +45,7 @@ namespace _01.Code.Enemies
                 }
                 else
                 {
+                    goldChannel.RaiseEvent(GoldEvent.getGoldEvent.Initialize(enemyData.getGold));
                     IsDead = true;
                     OnDeadEvent?.Invoke();
                     StartCoroutine(base.DeadCoroutine());

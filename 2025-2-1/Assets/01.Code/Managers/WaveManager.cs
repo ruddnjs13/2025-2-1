@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _01.Code.Enemies;
@@ -21,6 +22,11 @@ namespace _01.Code.Managers
         private void Start()
         {
             StartCoroutine(WaveCoroutine());
+        }
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
         }
 
         private IEnumerator WaveCoroutine()

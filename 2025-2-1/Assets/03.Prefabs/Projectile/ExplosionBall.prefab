@@ -9938,7 +9938,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 2.721e-42, y: 2.524355e-29, z: 0, w: 1.8395218e+25}
+  m_BoundingSphereOverride: {x: 8.493e-42, y: 0, z: 0, w: 1e-45}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -9983,13 +9983,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolManager: {fileID: 11400000, guid: e2dac2e42aa8dfe4787e58ea776c3283, type: 2}
-  speed: 4
+  speed: 8
   damage: 15
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
   <PoolType>k__BackingField: {fileID: 11400000, guid: dc0a55f1102ccbc4fbdc24946bc5653c, type: 2}
-  explosionRadius: 2
+  explosionRadius: 3.4
   effectType: {fileID: 11400000, guid: 8cbaa6a63cef5fb48a0a8ab46d54babb, type: 2}
 --- !u!1 &5962116622568894807
 GameObject:

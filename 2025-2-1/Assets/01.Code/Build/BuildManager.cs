@@ -125,8 +125,8 @@ public class BuildManager : MonoSingleton<BuildManager>
         Transform spawnTrm = placeTile.PlaceTrm[placeTile._ownTowerBase.Count];
         placeTile.SetTower(tower);
 
-        tower.transform.position = spawnTrm.position + new Vector3(0, 15f, 0);
-        tower.transform.DOMoveY(spawnTrm.position.y, 1f).SetEase(Ease.InOutCubic).OnComplete(() => tower.EnableTower());
+        tower.transform.position = spawnTrm.position + new Vector3(0, 5f, 0);
+        tower.transform.DOMoveY(spawnTrm.position.y, 0.2f).SetEase(Ease.InOutCubic).OnComplete(() => tower.EnableTower());
     }
 
     public void MoveTower(PlaceTile nextTile, TowerBase tower)

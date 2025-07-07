@@ -26,7 +26,12 @@ namespace _01.Code.Managers
             goldChannel.AddListener<SpendGoldEvent>(HandleSpendGold);
             
             goldChannel.RaiseEvent(GoldEvent.getGoldEvent.Initialize(startGold));
-            
+        }
+
+        private void OnDestroy()
+        {
+            goldChannel.RemoveListener<GetGoldEvent>(HandleGetGold);
+            goldChannel.RemoveListener<SpendGoldEvent>(HandleSpendGold);
         }
 
         private void HandleSpendGold(SpendGoldEvent evt)

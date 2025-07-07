@@ -1478,6 +1478,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1111119650}
+        m_TargetAssemblyTypeName: Feedbacks.FeedbackPlayer, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &227556889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4404,6 +4416,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6016331438292770998, guid: caeef86de93709645baae6f5dd1c59bf, type: 3}
   m_PrefabInstance: {fileID: 548050595}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &551819262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 551819264}
+  - component: {fileID: 551819263}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &551819263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551819262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7a64af2c1e42d4493e9e5f8f883a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolManager: {fileID: 11400000, guid: e2dac2e42aa8dfe4787e58ea776c3283, type: 2}
+--- !u!4 &551819264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551819262}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &557891582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6772,6 +6829,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1111119650}
+        m_TargetAssemblyTypeName: Feedbacks.FeedbackPlayer, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &815293196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7813,6 +7882,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105588646}
   m_CullTransparentMesh: 1
+--- !u!1001 &1111119649
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4563922581214580522, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_Name
+      value: SoundFeedback
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234429348456625706, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+--- !u!114 &1111119650 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5837474192619179596, guid: 291ae7de60ef55044818ad33e96483a5, type: 3}
+  m_PrefabInstance: {fileID: 1111119649}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc086ffb67e453aac8fb75198f93b76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1126010347
 GameObject:
   m_ObjectHideFlags: 0
@@ -8643,6 +8780,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5718947713563791537}
         m_TargetAssemblyTypeName: _01.Code.UI.StageManager, Assembly-CSharp
         m_MethodName: StartStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1111119650}
+        m_TargetAssemblyTypeName: Feedbacks.FeedbackPlayer, Assembly-CSharp
+        m_MethodName: PlayFeedback
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12978,6 +13127,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1111119650}
+        m_TargetAssemblyTypeName: Feedbacks.FeedbackPlayer, Assembly-CSharp
+        m_MethodName: PlayFeedback
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1974488028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14537,3 +14698,5 @@ SceneRoots:
   - {fileID: 204898429}
   - {fileID: 1595103454097966014}
   - {fileID: 736555463}
+  - {fileID: 1111119649}
+  - {fileID: 551819264}

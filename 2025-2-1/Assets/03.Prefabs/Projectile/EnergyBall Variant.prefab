@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolManager: {fileID: 11400000, guid: e2dac2e42aa8dfe4787e58ea776c3283, type: 2}
-  speed: 5
+  speed: 8
   damage: 20
   whatIsEnemy:
     serializedVersion: 2

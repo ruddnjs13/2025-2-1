@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 
 namespace _01.Code.UI
 {
@@ -9,6 +9,7 @@ namespace _01.Code.UI
         [SerializeField] private GameObject wavePanel;
         [SerializeField] private GameObject playerPanel;
         [SerializeField] private GameObject buildPanel;
+        [SerializeField] private GameObject settingsPanel;
 
         public void GameClear()
         {
@@ -16,7 +17,14 @@ namespace _01.Code.UI
             wavePanel.SetActive(false);
             playerPanel.SetActive(false);
             buildPanel.SetActive(false);
+            settingsPanel.SetActive(false);
             gameClearPanel.SetActive(true);
+        }
+
+        public void ToMainMenu()
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(1);
         }
     }
 }

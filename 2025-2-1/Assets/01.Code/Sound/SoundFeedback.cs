@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using Feedbacks;
 using RuddnjsPool;
 using UnityEngine;
 
-public class SoundFeedback : IFeedback
+public class SoundFeedback :MonoBehaviour, IFeedback
 {
     [SerializeField] private SoundSO _soundData;
     [SerializeField] private PoolManagerSO poolManager;
@@ -12,7 +10,7 @@ public class SoundFeedback : IFeedback
 
     public void PlayFeedback(Transform trm)
     {
-        //SoundPlayer soundPlayer =  poolManager.Pop() as SoundPlayer;
-        //soundPlayer.PlaySound(_soundData);
+        SoundPlayer soundPlayer =  poolManager.Pop(soundPlayerType) as SoundPlayer;
+        soundPlayer.PlaySound(_soundData);
     }
 }

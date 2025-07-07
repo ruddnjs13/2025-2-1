@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stage2_Wave2_Spawn2
   m_EditorClassIdentifier: 
   enemyType: {fileID: 11400000, guid: 86953457f5ca38c45b41eb1aaae011c4, type: 2}
-  spawnCount: 4
-  spawnInterval: 0.5
+  spawnCount: 3
+  spawnInterval: 2

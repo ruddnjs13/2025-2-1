@@ -1,18 +1,28 @@
+using System;
 using DG.Tweening;
 using RuddnjsPool;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using IPoolable = RuddnjsPool.IPoolable;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AudioSource))]
 public class SoundPlayer : MonoBehaviour, IPoolable
 {
     [SerializeField] private PoolManagerSO poolManager;
     [SerializeField] private AudioMixerGroup _sfxGroup, _musicGroup;
-    [SerializeField] private string _poolName;
-    public string PoolName => _poolName;
 
     private AudioSource _audioSource;
-    public GameObject ObjectPrefab => gameObject;
+
+    private void OnDestroy()
+    {
+        DOTween.Kill(this);
+    }
+    private void OnDisable()
+    {
+        DOTween.Kill(this);
+    }
 
     private void Awake()
     {

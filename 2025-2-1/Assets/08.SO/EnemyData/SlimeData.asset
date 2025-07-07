@@ -15,4 +15,4 @@ MonoBehaviour:
   maxHealth: 135
   moveSpeed: 2.2
   damage: 2
-  getGold: 20
+  getGold: 25

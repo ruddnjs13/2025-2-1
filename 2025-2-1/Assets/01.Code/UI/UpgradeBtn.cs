@@ -35,7 +35,7 @@ namespace _01.Code.UI
                     gameObject.SetActive(false);
                     return;
                 }
-                priceText.text = data.priceList[upgradeIdx+1].ToString();
+                priceText.text = data.priceList[upgradeIdx].ToString();
             }
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using Core.GameEvent;
+using Settings.InputSettings;
 using UnityEngine;
 
 namespace _01.Code.Managers
@@ -13,10 +14,17 @@ namespace _01.Code.Managers
         [SerializeField] private GameObject gameOverMenu;
         [SerializeField] private GameObject buildPanel;
         [SerializeField] private GameObject playerPanel;
+        [SerializeField] private GameObject settingsPanel;
+        [SerializeField] private InputReaderSO inputReader;
         
         private void Start()
         {
             systemChannel.AddListener<LifeDownEvent>(HandleLifeDown);
+        }
+
+        private void OnDestroy()
+        {
+            systemChannel.RemoveListener<LifeDownEvent>(HandleLifeDown);
         }
 
         private void HandleLifeDown(LifeDownEvent evt)
@@ -30,10 +38,12 @@ namespace _01.Code.Managers
 
         public void GameOver()
         {
+            inputReader.RockInput(false);
             Time.timeScale = 0;
             gameOverMenu.SetActive(true);
             playerPanel.SetActive(false);
             buildPanel.SetActive(false);
+            settingsPanel.SetActive(false);
         }
     }
 }

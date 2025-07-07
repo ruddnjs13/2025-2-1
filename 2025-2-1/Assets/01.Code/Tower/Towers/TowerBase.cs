@@ -8,6 +8,7 @@ using RuddnjsPool;
 using Settings.InputSettings;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
@@ -20,6 +21,8 @@ namespace _01.Code.Tower.Towers
     
     public abstract class TowerBase : MonoBehaviour, ITargeting, IAttack
     {
+        public UnityEvent OnAttackEvent;
+        
         public TowerType towerType;
         
         public float range = 5f;
@@ -34,6 +37,11 @@ namespace _01.Code.Tower.Towers
         private readonly int dirXHash = Animator.StringToHash("DirX");
         private readonly int dirYHash = Animator.StringToHash("DirY");
 
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
+        
         #region AttackLogic
         public void EnableTower()
         {
@@ -57,6 +65,7 @@ namespace _01.Code.Tower.Towers
                     animator.SetFloat(dirYHash, direction.z);
 
                     animator.SetTrigger("ATTACK");
+                    OnAttackEvent?.Invoke();
                     Attack(target);
                     yield return wait;
                 }
