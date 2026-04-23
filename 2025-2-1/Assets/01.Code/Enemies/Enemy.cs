@@ -1,42 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
-using _01.Code.Combat;
-using _01.Code.Managers;
-using Core.GameEvent;
+using Code.Combat;
+using Code.Core.GameEvent;
+using Code.Managers;
 using RuddnjsPool;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace _01.Code.Enemies
+namespace Code.Enemies
 {
     public abstract class Enemy : MonoBehaviour, IDamageable, IPoolable
     {
+        [Header("Events")]
         public UnityEvent<int, Enemy> OnHitEvent;
         public UnityEvent OnDeadEvent;
-        
+
+        [Header("References")]
         [SerializeField] protected EnemyRenderer renderer;
-        [field:SerializeField] public EnemyMovement movement { get; private set; }
         [SerializeField] protected PoolManagerSO poolManager;
         [SerializeField] protected GameEventChannelSO goldChannel;
         [SerializeField] protected GameEventChannelSO systemChannel;
-        [field:SerializeField] public EnemyDataSO enemyData { get; private set; }
         
-        [Header("EnemyStat")]
-        [field:SerializeField] public int Health { get; protected set; }
-        [field:SerializeField] public int Damage { get; private set; }
+        [field: SerializeField] public EnemyMovement movement { get; private set; }
+        [field: SerializeField] public EnemyDataSO enemyData { get; private set; }
 
-        protected readonly int _deadHash = Animator.StringToHash("DEAD");
-        protected readonly int _moveHash = Animator.StringToHash("MOVE");
+        [Header("Stats")]
+        [field: SerializeField] public int Health { get; protected set; }
+        [field: SerializeField] public int Damage { get; private set; }
 
-        public bool IsDead { get; protected set; } = false;
-        
-        protected readonly int enemyLayer = 7;
-        protected readonly int ignoreLayer = 10;
-        
+        public bool IsDead { get; protected set; }
+        private Coroutine _deadCoroutine;
+
+        protected static readonly int DeadHash = Animator.StringToHash("DEAD");
+        protected static readonly int MoveHash = Animator.StringToHash("MOVE");
+        protected const int EnemyLayer = 7;
+        protected const int IgnoreLayer = 10;
+        private const float DeadDelay = 3f;
+
+        #region Initialization & Core Logic
         public void ResetEnemy(List<Transform> wayPoints)
-        {            
-            movement.SetStop(false);
+        {
+            StopDeadCoroutine();
+            IsDead = false;
+            gameObject.layer = EnemyLayer;
+
             InitEnemy(enemyData.maxHealth, enemyData.damage, enemyData.moveSpeed);
+            
+            movement.SetStop(false);
             movement.SetWayPoints(wayPoints);
             movement.EnableEnemy();
         }
@@ -51,55 +61,76 @@ namespace _01.Code.Enemies
         public virtual void TakeDamage(int damage)
         {
             if (IsDead) return;
+
+            Health = Mathf.Max(Health - damage, 0);
             renderer.Hit();
-            Health = Mathf.Clamp(Health - damage,0, enemyData.maxHealth);
-            OnHitEvent?.Invoke(Health,this);
+            OnHitEvent?.Invoke(Health, this);
+
             if (Health <= 0)
             {
-                IsDead = true;
-                OnDeadEvent?.Invoke();
-                goldChannel.RaiseEvent(GoldEvent.getGoldEvent.Initialize(enemyData.getGold));
-                StartCoroutine(DeadCoroutine());
+                Die();
             }
+        }
+
+        private void Die()
+        {
+            IsDead = true;
+            OnDeadEvent?.Invoke();
+            
+            if (goldChannel != null)
+                goldChannel.RaiseEvent(GoldEvent.getGoldEvent.Initialize(enemyData.getGold));
+
+            _deadCoroutine = StartCoroutine(DeadCoroutine());
         }
 
         public void Arrive()
         {
-            WaveManager.Instance.UnregisterEnemy(this);
-            systemChannel.RaiseEvent(SystemEvent.LifeDownEvent);
+            if (IsDead) return;
+            
             IsDead = true;
-            movement.SetStop(true);
-            movement.resetPosition();
-            poolManager.Push(this);
+            systemChannel.RaiseEvent(SystemEvent.LifeDownEvent);
+            ReturnToPool();
         }
 
         protected virtual IEnumerator DeadCoroutine()
         {
-            gameObject.layer = ignoreLayer;
+            gameObject.layer = IgnoreLayer;
             movement.SetStop(true);
-            renderer.SetParam(_deadHash);
-            yield return new WaitForSeconds(3f);
+            renderer.SetParam(DeadHash);
+
+            yield return new WaitForSeconds(DeadDelay);
+            
+            ReturnToPool();
+        }
+
+        private void ReturnToPool()
+        {
             WaveManager.Instance.UnregisterEnemy(this);
             movement.resetPosition();
             poolManager.Push(this);
         }
 
-        #region Pool
+        private void StopDeadCoroutine()
+        {
+            if (_deadCoroutine != null)
+            {
+                StopCoroutine(_deadCoroutine);
+                _deadCoroutine = null;
+            }
+        }
+        #endregion
+
+        #region Pool Interface
         public float GetDistance() => movement.GetDistance();
         public int GetWaypointIdx() => movement.GetWaypointIdx();
-        [field:SerializeField] public PoolTypeSO PoolType { get; set; }
+
+        [field: SerializeField] public PoolTypeSO PoolType { get; set; }
         public GameObject GameObject => gameObject;
 
-        private Pool _myPool;
-        public void SetUpPool(Pool pool)
-        {
-            _myPool = pool;
-        }
+        public void SetUpPool(Pool pool) { }
 
         public virtual void ResetItem()
         {
-            IsDead = false;
-            gameObject.layer = enemyLayer;
         }
         #endregion
     }

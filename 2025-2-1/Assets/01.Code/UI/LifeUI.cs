@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
-using _01.Code.Managers;
-using Core.GameEvent;
+using Code.Core.GameEvent;
+using Code.Managers;
 using DG.Tweening;
 using UnityEngine;
 
-namespace _01.Code.UI
+namespace Code.UI
 {
     public class LifeUI : MonoBehaviour
     {

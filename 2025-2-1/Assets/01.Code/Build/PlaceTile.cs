@@ -1,84 +1,71 @@
 using System.Collections.Generic;
-using _01.Code.Tower.Towers;
+using Code.Towers;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
-public class PlaceTile : MonoBehaviour
+namespace Code.Build
 {
-    [field: SerializeField] public Transform[] PlaceTrm { get; set; }
-    
-    public bool CanBuild { get; private set; } = true;
-    
-    [SerializeField] public List<TowerBase> _ownTowerBase = new List<TowerBase>(3);
-
-    public void SetTower(TowerBase towerBase)
+    public class PlaceTile : MonoBehaviour
     {
-        if (!CanBuild) return;
+        private const int MaxTowerCount = 3;
 
-        _ownTowerBase.Add(towerBase);
-        if (_ownTowerBase.Count >= 3)
-            CanBuild = false;
-    }
-
-    public void MergeTower(TowerBase towerBase)
-    {
-        if (!CanBuild) return;
-        _ownTowerBase.Add(towerBase);
-        towerBase.transform.position = PlaceTrm[_ownTowerBase.Count-1].position;
-    }
-
-    public void ReNewTower()
-    {
-        int idx = 0;
-        foreach (TowerBase tower in _ownTowerBase)
-        {
-            tower.transform.position = PlaceTrm[idx++].position;
-        }
-    }
-
-    public void SwapTower(PlaceTile prevTile)
-    {
-        List<TowerBase> tmp = new List<TowerBase>(_ownTowerBase);
-        _ownTowerBase = prevTile._ownTowerBase;
-        prevTile._ownTowerBase = tmp;
+        [field: SerializeField] public Transform[] PlaceTrm { get; private set; }
+        [SerializeField] public List<TowerBase> ownTowerBase = new List<TowerBase>(MaxTowerCount);
         
-        ReNewTower();
-        prevTile.ReNewTower();
-    }
+        public bool CanBuild => ownTowerBase.Count < MaxTowerCount;
 
-    public void PutTower(PlaceTile prevTile)
-    {
-        if (!CanBuild) return;
-        if (prevTile._ownTowerBase.Count == 1)
+        public void SetTower(TowerBase tower)
         {
-            Debug.Log(prevTile);
-            _ownTowerBase.Add(prevTile._ownTowerBase[0]);
-            _ownTowerBase[0].transform.position = PlaceTrm[0].position;
+            if (!CanBuild) return;
+            ownTowerBase.Add(tower);
+            RefreshTowerPositions();
         }
-        else
+
+        public void MergeTower(PlaceTile prevTile)
         {
-            int idx = 0;
-            foreach (TowerBase tower in prevTile._ownTowerBase)
+            if (!CanBuild || prevTile == null) return;
+
+            int availableSpace = MaxTowerCount - ownTowerBase.Count;
+            int amountToAdd = Mathf.Min(availableSpace, prevTile.ownTowerBase.Count);
+
+            for (int i = 0; i < amountToAdd; i++)
             {
-                _ownTowerBase.Add(tower);
-                tower.transform.position = PlaceTrm[idx].position;
-                idx++;
+                ownTowerBase.Add(prevTile.ownTowerBase[i]);
+            }
+            
+            RefreshTowerPositions();
+        }
+
+        public void PutTower(PlaceTile prevTile)
+        {
+            if (!CanBuild || prevTile == null) return;
+
+            ownTowerBase.AddRange(prevTile.ownTowerBase);
+            RefreshTowerPositions();
+        }
+
+        public void SwapTower(PlaceTile otherTile)
+        {
+            if (otherTile == null) return;
+
+            var temp = new List<TowerBase>(ownTowerBase);
+            ownTowerBase = new List<TowerBase>(otherTile.ownTowerBase);
+            otherTile.ownTowerBase = temp;
+
+            RefreshTowerPositions();
+            otherTile.RefreshTowerPositions();
+        }
+
+        public void RefreshTowerPositions()
+        {
+            for (int i = 0; i < ownTowerBase.Count; i++)
+            {
+                if (i < PlaceTrm.Length)
+                    ownTowerBase[i].transform.position = PlaceTrm[i].position;
             }
         }
-    }
 
-    public void CancelMoveTower()
-    {
-        int idx = 0;
-        foreach (TowerBase ownTower in _ownTowerBase)
-        {
-            ownTower.transform.position = PlaceTrm[idx++].position;
-        }
-    }
+        public void CancelMoveTower() => RefreshTowerPositions();
 
-    public void ClearTower()
-    {
-        _ownTowerBase.Clear();
-        CanBuild = true;
+        public void ClearTower() => ownTowerBase.Clear();
     }
 }

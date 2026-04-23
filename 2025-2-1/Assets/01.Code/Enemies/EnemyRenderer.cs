@@ -1,59 +1,75 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
-namespace _01.Code.Enemies
+namespace Code.Enemies
 {
     public class EnemyRenderer : MonoBehaviour
     {
-        private SpriteRenderer _spriteRenderer;
-        private Animator _aniamtor;
-        
-        private readonly int _isHitValue = Shader.PropertyToID("_IsHit");
-
-        private Material _targetMat;
-
+        [Header("Settings")]
         [SerializeField] private float blinkTime = 0.2f;
-        
+
+        private SpriteRenderer _spriteRenderer;
+        private Animator _animator;
+        private Material _targetMat;
+        private Camera _mainCamera;
+
+        private WaitForSeconds _blinkWait;
+        private Coroutine _blinkCoroutine;
+        private static readonly int IsHitValue = Shader.PropertyToID("_IsHit");
 
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _aniamtor = GetComponent<Animator>();
-            
+            _animator = GetComponent<Animator>();
             _targetMat = _spriteRenderer.material;
-        }
-        
-        public void FlipByCamera(Vector3 moveDirection)
-        {
-            bool isFlip = Vector3.Dot(moveDirection,Camera.main.transform.right) > 0;
             
-            _spriteRenderer.flipX = isFlip;
+            _mainCamera = Camera.main;
+            _blinkWait = new WaitForSeconds(blinkTime);
         }
 
         private void OnDisable()
         {
-            StopAllCoroutines();
-            _targetMat.SetInt(_isHitValue, 0);
+            ResetHitEffect();
+        }
+
+        public void FlipByCamera(Vector3 moveDirection)
+        {
+            bool isFlip = Vector3.Dot(moveDirection, _mainCamera.transform.right) > 0;
+            _spriteRenderer.flipX = isFlip;
         }
 
         public void Hit()
         {
-            _targetMat.SetInt(_isHitValue, 0);
-            StopAllCoroutines();
-            _targetMat.SetInt(_isHitValue, 1);
-            StartCoroutine(DelayCoroutine());
+            if (_blinkCoroutine != null)
+            {
+                StopCoroutine(_blinkCoroutine);
+            }
+            _blinkCoroutine = StartCoroutine(BlinkCoroutine());
         }
 
-        private IEnumerator DelayCoroutine()
+        private IEnumerator BlinkCoroutine()
         {
-            yield return new WaitForSeconds(blinkTime);
-            _targetMat.SetInt(_isHitValue, 0);
+            _targetMat.SetInt(IsHitValue, 1);
+            yield return _blinkWait;
+            _targetMat.SetInt(IsHitValue, 0);
+            _blinkCoroutine = null;
         }
 
-        public void SetParam(int hashValue,bool value) => _aniamtor.SetBool(hashValue, value);
-        public void SetParam(int hashValue,int value) => _aniamtor.SetInteger(hashValue, value);
-        public void SetParam(int hashValue,float value) => _aniamtor.SetFloat(hashValue, value);
-        public void SetParam(int hashValue) => _aniamtor.SetTrigger(hashValue);
+        private void ResetHitEffect()
+        {
+            if (_blinkCoroutine != null)
+            {
+                StopCoroutine(_blinkCoroutine);
+                _blinkCoroutine = null;
+            }
+            _targetMat.SetInt(IsHitValue, 0);
+        }
+
+        #region Animator Parameters
+        public void SetParam(int hashValue, bool value) => _animator.SetBool(hashValue, value);
+        public void SetParam(int hashValue, int value) => _animator.SetInteger(hashValue, value);
+        public void SetParam(int hashValue, float value) => _animator.SetFloat(hashValue, value);
+        public void SetParam(int hashValue) => _animator.SetTrigger(hashValue);
+        #endregion
     }
 }

@@ -1,86 +1,86 @@
-using System;
 using DG.Tweening;
 using RuddnjsPool;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
-using IPoolable = RuddnjsPool.IPoolable;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(AudioSource))]
-public class SoundPlayer : MonoBehaviour, IPoolable
+namespace Code.Sound
 {
-    [SerializeField] private PoolManagerSO poolManager;
-    [SerializeField] private AudioMixerGroup _sfxGroup, _musicGroup;
-
-    private AudioSource _audioSource;
-
-    private void OnDestroy()
+    [RequireComponent(typeof(AudioSource))]
+    public class SoundPlayer : MonoBehaviour, IPoolable
     {
-        DOTween.Kill(this);
-    }
-    private void OnDisable()
-    {
-        DOTween.Kill(this);
-    }
+        [SerializeField] private PoolManagerSO poolManager;
+        [SerializeField] private AudioMixerGroup _sfxGroup, _musicGroup;
 
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
+        private AudioSource _audioSource;
 
-    public void PlaySound(SoundSO data)
-    {
-        if (data.audioType == AudioType.SFX)
+        private void OnDestroy()
         {
-            _audioSource.outputAudioMixerGroup = _sfxGroup; ;
+            DOTween.Kill(this);
         }
-        else if (data.audioType == AudioType.Music)
+        private void OnDisable()
         {
-            _audioSource.outputAudioMixerGroup = _musicGroup;
+            DOTween.Kill(this);
         }
 
-        _audioSource.volume = data.volume;
-        _audioSource.pitch = data.basePitch;
-
-        if (data.randomizePitch)
+        private void Awake()
         {
-            _audioSource.pitch += Random.Range(-data.randomPitchModifier, data.randomPitchModifier);
+            _audioSource = GetComponent<AudioSource>();
         }
 
-        _audioSource.clip = data.clip;
-
-        _audioSource.loop = data.loop;
-
-        if (!data.loop)
+        public void PlaySound(SoundSO data)
         {
-            float time = _audioSource.clip.length + 0.2f;
-            DOVirtual.DelayedCall(time, () => poolManager.Push(this));
+            if (data.audioType == AudioType.SFX)
+            {
+                _audioSource.outputAudioMixerGroup = _sfxGroup; ;
+            }
+            else if (data.audioType == AudioType.Music)
+            {
+                _audioSource.outputAudioMixerGroup = _musicGroup;
+            }
+
+            _audioSource.volume = data.volume;
+            _audioSource.pitch = data.basePitch;
+
+            if (data.randomizePitch)
+            {
+                _audioSource.pitch += Random.Range(-data.randomPitchModifier, data.randomPitchModifier);
+            }
+
+            _audioSource.clip = data.clip;
+
+            _audioSource.loop = data.loop;
+
+            if (!data.loop)
+            {
+                float time = _audioSource.clip.length + 0.2f;
+                DOVirtual.DelayedCall(time, () => poolManager.Push(this));
+            }
+
+            _audioSource.Play();
         }
 
-        _audioSource.Play();
-    }
-
-    public void StopAndGoToPool()
-    {
-        _audioSource.Stop();
-        poolManager.Push(this);
-    }
+        public void StopAndGoToPool()
+        {
+            _audioSource.Stop();
+            poolManager.Push(this);
+        }
     
-    #region Pool
+        #region Pool
 
-    [field:SerializeField] public PoolTypeSO PoolType { get; set; }
-    public GameObject GameObject => gameObject;
+        [field:SerializeField] public PoolTypeSO PoolType { get; set; }
+        public GameObject GameObject => gameObject;
 
-    private Pool _myPool;
+        private Pool _myPool;
     
-    public void SetUpPool(Pool pool)
-    {
-        _myPool = pool;
-    }
+        public void SetUpPool(Pool pool)
+        {
+            _myPool = pool;
+        }
 
-    public void ResetItem()
-    {
+        public void ResetItem()
+        {
+        }
+        #endregion
     }
-    #endregion
 }

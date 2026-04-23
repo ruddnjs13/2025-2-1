@@ -1,15 +1,13 @@
-using System;
-using System.Xml.Schema;
-using _01.Code.Managers;
-using _01.Code.Tower.Towers;
-using Core.GameEvent;
+using Code.Build;
+using Code.Core.GameEvent;
+using Code.Managers;
 using Settings.InputSettings;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace _01.Code.Tower
+namespace Code.Towers
 {
     public class TowerDragHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
@@ -72,7 +70,7 @@ namespace _01.Code.Tower
             {
                 if (hit.collider.TryGetComponent(out PlaceTile placeTile))
                 {
-                    if (placeTile._ownTowerBase.Count > 0 && placeTile._ownTowerBase[0].towerType != type)
+                    if (placeTile.ownTowerBase.Count > 0 && placeTile.ownTowerBase[0].towerType != type)
                     {
                         preview.SetActive(false);
                         return;

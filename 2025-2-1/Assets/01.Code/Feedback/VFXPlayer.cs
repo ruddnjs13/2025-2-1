@@ -2,7 +2,7 @@ using System.Collections;
 using RuddnjsPool;
 using UnityEngine;
 
-namespace Feedbacks.VFX
+namespace Code.Feedback
 {
     public class VFXPlayer : MonoBehaviour, IPoolable
     {

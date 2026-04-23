@@ -1,58 +1,47 @@
-using System;
-using Core.GameEvent;
+using Code.Core;
+using Code.Core.GameEvent;
 using TMPro;
 using UnityEngine;
 
-namespace _01.Code.Managers
+namespace Code.Managers
 {
     public class GoldManager : MonoSingleton<GoldManager>
     {
-        [SerializeField] private TextMeshProUGUI goldText;
-        
-        public int Gold { get; private set; }
-
         [SerializeField] private GameEventChannelSO goldChannel;
+        [SerializeField] private TextMeshProUGUI goldText;
+        [SerializeField] private int startGold = 100;
 
-        [SerializeField] private int startGold;
-        
-        public bool CheckEnoughGold(int useAmount)
-        {
-            return Gold >= useAmount;
-        }
+        public int Gold { get; private set; }
 
         private void Start()
         {
             goldChannel.AddListener<GetGoldEvent>(HandleGetGold);
             goldChannel.AddListener<SpendGoldEvent>(HandleSpendGold);
             
-            goldChannel.RaiseEvent(GoldEvent.getGoldEvent.Initialize(startGold));
+            UpdateGold(startGold);
         }
 
         private void OnDestroy()
         {
+            if (goldChannel == null) return;
             goldChannel.RemoveListener<GetGoldEvent>(HandleGetGold);
             goldChannel.RemoveListener<SpendGoldEvent>(HandleSpendGold);
         }
 
-        private void HandleSpendGold(SpendGoldEvent evt)
+        public bool CheckEnoughGold(int useAmount) => Gold >= useAmount;
+
+        private void HandleGetGold(GetGoldEvent evt) => UpdateGold(evt.getAmount);
+
+        private void HandleSpendGold(SpendGoldEvent evt) => UpdateGold(-evt.spendAmount);
+
+        private void UpdateGold(int amount)
         {
-            Gold -= evt.spendAmount;
-            ChangeGoldUI();
+            Gold += amount;
+            
+            if (goldText != null)
+                goldText.text = Gold.ToString("N0");
+                
             goldChannel.RaiseEvent(GoldEvent.goldValueChangeEvent);
         }
-
-        private void HandleGetGold(GetGoldEvent evt)
-        {
-            Gold += evt.getAmount;
-            ChangeGoldUI();
-            goldChannel.RaiseEvent(GoldEvent.goldValueChangeEvent);
-
-        }
-
-        private void ChangeGoldUI()
-        {
-            goldText.text = Gold.ToString();
-        }
-        
     }
 }

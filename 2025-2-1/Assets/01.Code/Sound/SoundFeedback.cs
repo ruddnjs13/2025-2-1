@@ -1,16 +1,20 @@
-using Feedbacks;
+using _01.Code.Sound;
+using Code.Feedback;
 using RuddnjsPool;
 using UnityEngine;
 
-public class SoundFeedback :MonoBehaviour, IFeedback
+namespace Code.Sound
 {
-    [SerializeField] private SoundSO _soundData;
-    [SerializeField] private PoolManagerSO poolManager;
-    [SerializeField] private PoolTypeSO soundPlayerType;
-
-    public void PlayFeedback(Transform trm)
+    public class SoundFeedback :MonoBehaviour, IFeedback
     {
-        SoundPlayer soundPlayer =  poolManager.Pop(soundPlayerType) as SoundPlayer;
-        soundPlayer.PlaySound(_soundData);
+        [SerializeField] private SoundSO _soundData;
+        [SerializeField] private PoolManagerSO poolManager;
+        [SerializeField] private PoolTypeSO soundPlayerType;
+
+        public void PlayFeedback(Transform trm)
+        {
+            SoundPlayer soundPlayer =  poolManager.Pop(soundPlayerType) as SoundPlayer;
+            soundPlayer.PlaySound(_soundData);
+        }
     }
 }

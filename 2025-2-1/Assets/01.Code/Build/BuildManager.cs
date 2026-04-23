@@ -1,188 +1,186 @@
-using System;
 using System.Collections.Generic;
-using _01.Code.Tower.Towers;
-using Core.GameEvent;
+using Code.Core;
+using Code.Core.GameEvent;
+using Code.Towers;
 using DG.Tweening;
 using Settings.InputSettings;
 using UnityEngine;
 
-public class BuildManager : MonoSingleton<BuildManager>
+namespace Code.Build
 {
-    [SerializeField] private InputReaderSO inputReader;
-    [SerializeField] private List<GameObject> towerPrefabs;
-    [SerializeField] private GameEventChannelSO goldChannel;
-    [SerializeField] private LayerMask whatIsPlaceTile;
-
-    private const int MaxTowerCount = 3;
-
-    public TowerBase _selectedTower;
-    public PlaceTile _selectedTile;
-
-    private readonly Dictionary<TowerBase, PlaceTile> tileDic = new();
-
-    private void OnEnable()
+    public class BuildManager : MonoSingleton<BuildManager>
     {
-        inputReader.OnDragEvent += HandleDragEvent;
-    }
+        [SerializeField] private InputReaderSO inputReader;
+        [SerializeField] private List<GameObject> towerPrefabs;
+        [SerializeField] private GameEventChannelSO goldChannel;
+        [SerializeField] private LayerMask whatIsPlaceTile;
 
-    private void HandleDragEvent(bool isDrag)
-    {
-        if (isDrag)
+        private const int MaxTowerCount = 3;
+        private Camera _mainCam;
+        
+        private readonly Dictionary<TowerBase, PlaceTile> _tileDic = new();
+
+        public TowerBase SelectedTower { get; private set; }
+        public PlaceTile SelectedTile { get; private set; }
+
+        private void Awake()
         {
-            _selectedTower = TrySelectTower();
-            SetDragState(_selectedTower, true);
+            _mainCam = Camera.main;
         }
-        else
+
+        private void OnEnable()
         {
-            _selectedTile = TrySelectPlaceTile();
+            inputReader.OnDragEvent += HandleDragEvent;
+        }
 
-            if (_selectedTower != null && _selectedTile != null && _selectedTile.CanBuild)
+        #region Drag & Drop
+        private void HandleDragEvent(bool isDragging)
+        {
+            if (isDragging)
             {
-                if (!tileDic.TryGetValue(_selectedTower, out var prevTile))
-                {
-                    Debug.LogWarning("선택된 타워가 타일딕에 없음.");
-                    return;
-                }
-
-                if (_selectedTile == prevTile)
-                {
-                    Cancel();
-                    return;
-                }
-
-                SetDragState(_selectedTower, false);
-
-                if (_selectedTile._ownTowerBase.Count <= 0)
-                {
-                    MoveTower(_selectedTile, _selectedTower);
-                }
-                else if (_selectedTower.towerType != _selectedTile._ownTowerBase[0].towerType)
-                {
-                    SwapTowers(prevTile, _selectedTile);
-                }
-                else
-                {
-                    if (_selectedTile._ownTowerBase.Count + prevTile._ownTowerBase.Count > MaxTowerCount)
-                    {
-                        SwapTowers(prevTile, _selectedTile);
-                    }
-                    else
-                    {
-                        MergeTowers(prevTile, _selectedTile);
-                        prevTile.ClearTower();
-                    }
-                }
+                SelectedTower = TrySelectTower();
+                SetDragState(SelectedTower, true);
             }
-            else if (_selectedTower != null)
+            else
+            {
+                Drop();
+            }
+        }
+
+        private void Drop()
+        {
+            if (SelectedTower == null) return;
+
+            SelectedTile = TrySelectPlaceTile();
+            
+            if (SelectedTile == null || !SelectedTile.CanBuild || 
+                !_tileDic.TryGetValue(SelectedTower, out var prevTile) || SelectedTile == prevTile)
             {
                 Cancel();
+                return;
             }
-        }
-    }
 
-    private void SetDragState(TowerBase tower, bool isDragging)
-    {
-        if (tower != null && tileDic.TryGetValue(tower, out var tile))
+            SetDragState(SelectedTower, false);
+            ProcessTowerInteraction(prevTile, SelectedTile, SelectedTower);
+        }
+        
+        private void SetDragState(TowerBase tower, bool isDragging)
         {
-            foreach (TowerBase t in tile._ownTowerBase)
+            if (tower != null && _tileDic.TryGetValue(tower, out var tile))
             {
-                if (isDragging) t.StartDrag();
-                else t.EndDrag();
+                foreach (TowerBase t in tile.ownTowerBase)
+                {
+                    if (isDragging) t.StartDrag();
+                    else t.EndDrag();
+                }
             }
         }
-    }
 
-    private void Cancel()
-    {
-        SetDragState(_selectedTower, false);
-        if (tileDic.TryGetValue(_selectedTower, out var tile))
+        
+        #endregion
+
+        #region Tower Interaction 
+
+        private void ProcessTowerInteraction(PlaceTile from, PlaceTile to, TowerBase tower)
         {
-            tile.CancelMoveTower();
-        }
-    }
+            if (to.ownTowerBase.Count <= 0)
+            {
+                MoveTower(to, tower);
+            }
+            else
+            {
+                bool isSameType = tower.towerType == to.ownTowerBase[0].towerType;
+                bool canMerge = isSameType && (to.ownTowerBase.Count + from.ownTowerBase.Count <= MaxTowerCount);
 
-    public void BuildTower(PlaceTile placeTile, TowerType type, int spendAmount)
-    {
-        if (!placeTile.CanBuild || placeTile._ownTowerBase.Count >= MaxTowerCount)
-            return;
-
-        if ((int)type < 0 || (int)type >= towerPrefabs.Count)
-        {
-            Debug.LogWarning("Invalid tower type index.");
-            return;
-        }
-
-        goldChannel.RaiseEvent(GoldEvent.spendGolEvent.Initialize(spendAmount));
-        TowerBase tower = Instantiate(towerPrefabs[(int)type]).GetComponent<TowerBase>();
-        tileDic[tower] = placeTile;
-
-        if (placeTile._ownTowerBase.Count >= placeTile.PlaceTrm.Length)
-        {
-            Debug.LogError("No available place transform for tower placement.");
-            return;
+                if (canMerge) MergeTowers(from, to);
+                else SwapTowers(from, to);
+            }
         }
 
-        Transform spawnTrm = placeTile.PlaceTrm[placeTile._ownTowerBase.Count];
-        placeTile.SetTower(tower);
-
-        tower.transform.position = spawnTrm.position + new Vector3(0, 5f, 0);
-        tower.transform.DOMoveY(spawnTrm.position.y, 0.2f).SetEase(Ease.InOutCubic).OnComplete(() => tower.EnableTower());
-    }
-
-    public void MoveTower(PlaceTile nextTile, TowerBase tower)
-    {
-        if (!tileDic.TryGetValue(tower, out var prevTile)) return;
-        if (!nextTile.CanBuild || nextTile._ownTowerBase.Count >= MaxTowerCount) return;
-
-        nextTile.PutTower(prevTile);
-        prevTile.ClearTower();
-
-        foreach (TowerBase t in nextTile._ownTowerBase)
-            tileDic[t] = nextTile;
-    }
-
-    private void MergeTowers(PlaceTile fromTile, PlaceTile toTile)
-    {
-        foreach (TowerBase tower in fromTile._ownTowerBase)
+        public void MoveTower(PlaceTile nextTile, TowerBase tower)
         {
-            toTile.MergeTower(tower);
-            tileDic[tower] = toTile;
-        }
-    }
+            if (!_tileDic.TryGetValue(tower, out var prevTile)) return;
 
-    private void SwapTowers(PlaceTile tileA, PlaceTile tileB)
-    {
-        foreach (TowerBase tower in tileA._ownTowerBase)
-        {
-            tileDic[tower] = tileB;
-        }
-        foreach (TowerBase tower in tileB._ownTowerBase)
-        {
-            tileDic[tower] = tileA;
+            nextTile.PutTower(prevTile);
+            prevTile.ClearTower();
+    
+            UpdateDicForTile(nextTile);
+            UpdateDicForTile(prevTile);
         }
 
-        tileB.SwapTower(tileA);
-    }
-
-    public TowerBase TrySelectTower()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(inputReader.MousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Camera.main.farClipPlane))
+        private void MergeTowers(PlaceTile fromTile, PlaceTile toTile)
         {
-            if (hit.collider.TryGetComponent(out TowerBase tower))
-                return tower;
-        }
-        return null;
-    }
+            toTile.MergeTower(fromTile);
 
-    public PlaceTile TrySelectPlaceTile()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(inputReader.MousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, whatIsPlaceTile))
-        {
-            if (hit.collider.TryGetComponent(out PlaceTile placeTile))
-                return placeTile;
+            fromTile.ClearTower();
+            UpdateDicForTile(toTile);
+            UpdateDicForTile(fromTile);
         }
-        return null;
+
+        private void SwapTowers(PlaceTile tileA, PlaceTile tileB)
+        {
+            tileB.SwapTower(tileA);
+    
+            UpdateDicForTile(tileA);
+            UpdateDicForTile(tileB);
+        }
+
+        public void BuildTower(PlaceTile placeTile, TowerType type, int spendAmount)
+        {
+            if (!placeTile.CanBuild || placeTile.ownTowerBase.Count >= MaxTowerCount) return;
+
+            int typeIdx = (int)type;
+            if (typeIdx < 0 || typeIdx >= towerPrefabs.Count) return;
+
+            goldChannel.RaiseEvent(GoldEvent.spendGolEvent.Initialize(spendAmount));
+            
+            TowerBase tower = Instantiate(towerPrefabs[typeIdx]).GetComponent<TowerBase>();
+            _tileDic[tower] = placeTile;
+            placeTile.SetTower(tower);
+
+            Transform spawnTrm = placeTile.PlaceTrm[placeTile.ownTowerBase.Count - 1];
+            tower.transform.position = spawnTrm.position + new Vector3(0, 5f, 0);
+            tower.transform.DOMoveY(spawnTrm.position.y, 0.2f)
+                .SetEase(Ease.InOutCubic)
+                .OnComplete(() => tower.EnableTower());
+        }
+        
+        #endregion
+        
+        #region Selection
+
+        private void UpdateDicForTile(PlaceTile tile)
+        {
+            foreach (var tower in tile.ownTowerBase)
+                _tileDic[tower] = tile;
+        }
+        
+        private void Cancel()
+        {
+            if (SelectedTower != null && _tileDic.TryGetValue(SelectedTower, out var tile))
+                tile.CancelMoveTower();
+            
+            SetDragState(SelectedTower, false);
+            SelectedTower = null;
+        }
+
+        public TowerBase TrySelectTower()
+        {
+            Ray ray = _mainCam.ScreenPointToRay(inputReader.MousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, _mainCam.farClipPlane))
+                if (hit.collider.TryGetComponent(out TowerBase tower)) return tower;
+            return null;
+        }
+
+        public PlaceTile TrySelectPlaceTile()
+        {
+            Ray ray = _mainCam.ScreenPointToRay(inputReader.MousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, whatIsPlaceTile))
+                if (hit.collider.TryGetComponent(out PlaceTile placeTile)) return placeTile;
+            return null;
+        }
+
+        #endregion
+       
     }
 }

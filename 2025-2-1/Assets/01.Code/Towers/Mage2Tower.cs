@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using _01.Code.Combat.Projectiles;
-using _01.Code.Enemies;
-using Unity.Cinemachine;
-using UnityEngine;
-using UnityEngine.Serialization;
+using Code.Combat.Projectiles;
+using Code.Enemies;
 
-namespace _01.Code.Tower.Towers
+namespace Code.Towers
 {
     public class Mage2Tower : TowerBase
     {

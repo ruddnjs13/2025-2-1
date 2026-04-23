@@ -1,9 +1,9 @@
 using System;
-using _01.Code.Enemies;
+using Code.Enemies;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _01.Code.UI
+namespace Code.UI
 {
     public class HealthBarUI : MonoBehaviour
     {

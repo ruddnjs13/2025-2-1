@@ -1,7 +1,7 @@
 using RuddnjsPool;
 using UnityEngine;
 
-namespace _01.Code.ETC
+namespace Code.ETC
 {
     [CreateAssetMenu(fileName = "SpawnData", menuName = "SO/SpawnData", order = 0)]
     public class SpawnDataSO : ScriptableObject

@@ -1,4 +1,4 @@
-namespace _01.Code.Tower
+namespace Code.Towers
 {
     public interface IAttack
     {

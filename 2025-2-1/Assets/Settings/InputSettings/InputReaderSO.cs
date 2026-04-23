@@ -45,8 +45,6 @@ namespace Settings.InputSettings
                 OnDragEvent?.Invoke(true);
             else if(context.canceled)
                 OnDragEvent?.Invoke(false);
-            
-                
         }
 
         public void OnDragPosition(InputAction.CallbackContext context)

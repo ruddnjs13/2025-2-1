@@ -1,37 +1,40 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class NotifyValue<T>
+namespace Code.Core
 {
-    public delegate void ValueChanged(T prev, T next);
-
-    public event ValueChanged OnValueChanged;
-
-    [SerializeField] private T _value;
-
-    public T Value
+    [Serializable]
+    public class NotifyValue<T>
     {
-        get
+        public delegate void ValueChanged(T prev, T next);
+
+        public event ValueChanged OnValueChanged;
+
+        [SerializeField] private T _value;
+
+        public T Value
         {
-            return _value;
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                T before = _value;
+                _value = value;
+                if ((before == null && value != null) || !before.Equals(_value))
+                    OnValueChanged?.Invoke(before, _value);
+            }
+
         }
-        set
+        public NotifyValue()
         {
-            T before = _value;
+            _value = default(T);
+        }
+
+        public NotifyValue(T value)
+        {
             _value = value;
-            if ((before == null && value != null) || !before.Equals(_value))
-                OnValueChanged?.Invoke(before, _value);
         }
-
-    }
-    public NotifyValue()
-    {
-        _value = default(T);
-    }
-
-    public NotifyValue(T value)
-    {
-        _value = value;
     }
 }

@@ -1,9 +1,9 @@
 using System;
-using _01.Code.Tower;
+using Code.Towers;
 using Settings.InputSettings;
 using UnityEngine;
 
-namespace _01.Code.ETC
+namespace Code.ETC
 {
     public class ResetData : MonoBehaviour
     {

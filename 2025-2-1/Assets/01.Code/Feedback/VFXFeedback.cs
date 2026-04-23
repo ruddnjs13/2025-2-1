@@ -1,8 +1,7 @@
 using RuddnjsPool;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Feedbacks.VFX
+namespace Code.Feedback
 {
     public class VFXFeedback : MonoBehaviour, IFeedback
     {

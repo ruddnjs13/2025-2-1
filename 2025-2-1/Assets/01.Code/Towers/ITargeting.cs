@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using _01.Code.Enemies;
+using Code.Enemies;
 
-namespace _01.Code.Tower
+namespace Code.Towers
 {
     public interface ITargeting
     {

@@ -1,35 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace Code.Core
 {
-    private static T _instance = null;
-    private static bool IsDestroyed = false;
-
-    public static T Instance
+    public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        get
-        {
-            if (IsDestroyed)
-                _instance = null;
+        private static T _instance = null;
+        private static bool IsDestroyed = false;
 
-            if (_instance == null)
+        public static T Instance
+        {
+            get
             {
-                _instance = GameObject.FindObjectOfType<T>();
+                if (IsDestroyed)
+                    _instance = null;
 
                 if (_instance == null)
-                    Debug.LogError($"{typeof(T).Name} singleton is not exist");
-                else
-                    IsDestroyed = false;
+                {
+                    _instance = GameObject.FindObjectOfType<T>();
+
+                    if (_instance == null)
+                        Debug.LogError($"{typeof(T).Name} singleton is not exist");
+                    else
+                        IsDestroyed = false;
+                }
+
+                return _instance;
             }
-
-            return _instance;
         }
-    }
 
-    private void OnDisable()
-    {
-        IsDestroyed = true;
+        private void OnDisable()
+        {
+            IsDestroyed = true;
+        }
     }
 }

@@ -1,13 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using _01.Code.Enemies;
-using _01.Code.ETC;
+using Code.Core;
+using Code.Enemies;
+using Code.ETC;
 using RuddnjsPool;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace _01.Code.Managers
+namespace Code.Managers
 {
     public class WaveManager : MonoSingleton<WaveManager>
     {
@@ -15,77 +15,77 @@ namespace _01.Code.Managers
         public UnityEvent OnWaveEnd;
         
         [SerializeField] private PoolManagerSO poolManager;
-        [SerializeField] private List<Enemy> enemies = new List<Enemy>();
         [SerializeField] private Transform spawnTrm;
-        [field:SerializeField] public List<Transform> WayPoints { get; private set; }
+        [field: SerializeField] public List<Transform> WayPoints { get; private set; }
         [SerializeField] private List<WaveDataSO> waveInfos = new List<WaveDataSO>();
+
+        private readonly List<Enemy> _enemies = new List<Enemy>();
+        private WaitForSeconds _checkInterval;
+        private WaitForSeconds _initialWaveDelay;
+
+        protected void Awake()
+        {
+            _checkInterval = new WaitForSeconds(0.2f);
+            _initialWaveDelay = new WaitForSeconds(4f);
+        }
+
         private void Start()
         {
-            StartCoroutine(WaveCoroutine());
+            StartCoroutine(WaveRoutine());
         }
 
-        private void OnDestroy()
-        {
-            StopAllCoroutines();
-        }
-
-        private IEnumerator WaveCoroutine()
+        private IEnumerator WaveRoutine()
         {
             for (int i = 0; i < waveInfos.Count; i++)
             {
-                OnWaveStart?.Invoke(i);
-                yield return new WaitForSeconds(4f);
-                for (int j = 0; j < waveInfos[i].spawnGroupList.Count; j++)
+                OnWaveStart?.Invoke(i + 1);
+                yield return _initialWaveDelay;
+
+                WaveDataSO waveData = waveInfos[i];
+                
+                foreach (SpawnDataSO group in waveData.spawnGroupList)
                 {
-                    WaitForSeconds wait = new WaitForSeconds(waveInfos[i].spawnGroupList[j].spawnInterval * 
-                                                             waveInfos[i].spawnGroupList[j].spawnCount);
-                    StartCoroutine(SpawnEnemy(waveInfos[i].spawnGroupList[j]));
-                    yield return wait;
+                    yield return StartCoroutine(SpawnEnemyRoutine(group));
                 }
-                yield return new WaitForSeconds(waveInfos[i].nextWaveDelay);
+
+                yield return new WaitForSeconds(waveData.nextWaveDelay);
             }
 
-            while (true)
+            while (_enemies.Count > 0)
             {
-                yield return new WaitForSeconds(0.2f);
-                if (enemies.Count <= 0)
-                {
-                    OnWaveEnd?.Invoke();
-                    break;
-                }
+                yield return _checkInterval;
             }
+
+            OnWaveEnd?.Invoke();
         }
 
-        private IEnumerator SpawnEnemy(SpawnDataSO spawnData)
+        private IEnumerator SpawnEnemyRoutine(SpawnDataSO spawnData)
         {
+            WaitForSeconds interval = new WaitForSeconds(spawnData.spawnInterval);
+
             for (int i = 0; i < spawnData.spawnCount; i++)
             {
-                Enemy enemy = poolManager.Pop(spawnData.enemyType) as Enemy;
-                enemy.transform.position = spawnTrm.position;
-                enemy.ResetEnemy(WayPoints);
-                RegisterEnemy(enemy);
-                yield return new WaitForSeconds(spawnData.spawnInterval);
+                if (poolManager.Pop(spawnData.enemyType) is Enemy enemy)
+                {
+                    enemy.transform.position = spawnTrm.position;
+                    enemy.ResetEnemy(WayPoints);
+                    RegisterEnemy(enemy);
+                }
+                yield return interval;
             }
         }
-        
-        
 
         public void RegisterEnemy(Enemy enemy)
         {
-            if (!enemies.Contains(enemy))
-                enemies.Add(enemy);
+            if (!_enemies.Contains(enemy))
+                _enemies.Add(enemy);
         }
 
         public void UnregisterEnemy(Enemy enemy)
         {
-            enemy.transform.position = spawnTrm.position;
-            if (enemies.Contains(enemy))
-                enemies.Remove(enemy);
+            _enemies.Remove(enemy);
         }
 
-        public List<Enemy> GetAllEnemies()
-        {
-            return enemies;
-        }
+        public List<Enemy> GetAllEnemies() => _enemies;
     }
 }

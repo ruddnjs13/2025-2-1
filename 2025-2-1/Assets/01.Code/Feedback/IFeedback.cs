@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Feedbacks
+namespace Code.Feedback
 {
     public interface IFeedback
     {

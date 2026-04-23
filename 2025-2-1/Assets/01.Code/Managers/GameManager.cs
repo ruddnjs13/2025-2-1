@@ -1,9 +1,10 @@
 using System;
-using Core.GameEvent;
+using Code.Core;
+using Code.Core.GameEvent;
 using Settings.InputSettings;
 using UnityEngine;
 
-namespace _01.Code.Managers
+namespace Code.Managers
 {
     public class GameManager : MonoSingleton<GameManager
     >

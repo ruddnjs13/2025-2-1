@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SceneFade : MonoBehaviour
+namespace Code.UI
 {
-    public UnityEvent SceneFadeEvent;
-    private void Start()
+    public class SceneFade : MonoBehaviour
     {
-        SceneFadeEvent?.Invoke();
+        public UnityEvent SceneFadeEvent;
+        private void Start()
+        {
+            SceneFadeEvent?.Invoke();
+        }
     }
 }

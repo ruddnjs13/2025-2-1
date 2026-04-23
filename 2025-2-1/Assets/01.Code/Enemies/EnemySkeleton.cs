@@ -1,9 +1,9 @@
 using System.Collections;
-using Core.GameEvent;
+using Code.Core.GameEvent;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace _01.Code.Enemies
+namespace Code.Enemies
 {
     public class EnemySkeleton : Enemy
     {
@@ -19,12 +19,12 @@ namespace _01.Code.Enemies
             }
             
             movement.SetStop(true);
-            renderer.SetParam(_deadHash);
+            renderer.SetParam(DeadHash);
             IsDead = true;
             yield return new WaitForSeconds(3f);
             OnReviveEvent?.Invoke();
             movement.SetStop(false);
-            renderer.SetParam(_moveHash);
+            renderer.SetParam(MoveHash);
             IsDead = false; 
             life -= 1;
             Health = enemyData.maxHealth;

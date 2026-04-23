@@ -1,9 +1,9 @@
-using _01.Code.Managers;
-using Core.GameEvent;
+using Code.Core.GameEvent;
+using Code.Managers;
 using RuddnjsPool;
 using UnityEngine;
 
-namespace _01.Code.Enemies
+namespace Code.Enemies
 {
     public class EnemySlime : Enemy
     {
@@ -28,7 +28,7 @@ namespace _01.Code.Enemies
                     Enemy babySlime = poolManager.Pop(babySlimeType) as Enemy;
                     babySlime.transform.position = spawnCenter + transform.right * spawnPoints[i];
                     babySlime.ResetEnemy(WaveManager.Instance.WayPoints);
-                    babySlime.movement.SetIdx(movement._currentIndex);
+                    babySlime.movement.SetIdx(movement.CurrentIndex);
                     WaveManager.Instance.RegisterEnemy(babySlime);
                 }
                 

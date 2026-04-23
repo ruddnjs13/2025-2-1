@@ -4,7 +4,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _01.Code.UI
+namespace Code.UI
 {
     public class StageManager : MonoBehaviour
     {

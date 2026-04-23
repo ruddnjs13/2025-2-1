@@ -1,11 +1,11 @@
 using System;
-using _01.Code.Managers;
-using _01.Code.Tower;
-using Core.GameEvent;
+using Code.Core.GameEvent;
+using Code.Managers;
+using Code.Towers;
 using TMPro;
 using UnityEngine;
 
-namespace _01.Code.UI
+namespace Code.UI
 {
     public class UpgradeBtn : MonoBehaviour
     {

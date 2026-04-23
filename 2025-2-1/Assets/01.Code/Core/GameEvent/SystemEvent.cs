@@ -1,4 +1,4 @@
-namespace Core.GameEvent
+namespace Code.Core.GameEvent
 {
     public class SystemEvent
     {

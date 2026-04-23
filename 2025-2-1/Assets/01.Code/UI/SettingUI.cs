@@ -1,8 +1,7 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
-namespace _01.Code.UI
+namespace Code.UI
 {
     public class SettingUI : MonoBehaviour
     {

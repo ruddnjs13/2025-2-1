@@ -1,18 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using _01.Code.Enemies;
-using _01.Code.ETC;
-using _01.Code.Managers;
+using Code.Enemies;
+using Code.Managers;
 using RuddnjsPool;
 using Settings.InputSettings;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
-namespace _01.Code.Tower.Towers
+namespace Code.Towers
 {
     public enum TowerType
     {

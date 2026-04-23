@@ -2,7 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace _01.Code.UI
+namespace Code.UI
 {
     public class WaveUI : MonoBehaviour
     {

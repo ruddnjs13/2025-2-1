@@ -1,15 +1,14 @@
-using System;
-using _01.Code.Enemies;
-using Unity.VisualScripting;
+using Code.Enemies;
 using UnityEngine;
 
-namespace _01.Code.Tower.Towers
+namespace Code.Towers
 {
     public class KnightTower : TowerBase
     {
         [SerializeField] private LayerMask whatIsEnemy;
         [SerializeField] private ParticleSystem slashEffect;
         [SerializeField] private float attackRadius;
+        
         public override void Attack(Enemy target)
         {
             firePos.transform.rotation = Quaternion.LookRotation(target.transform.position - transform.position);

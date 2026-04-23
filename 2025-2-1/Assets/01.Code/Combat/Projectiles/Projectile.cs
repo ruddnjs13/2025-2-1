@@ -1,8 +1,8 @@
-using _01.Code.Enemies;
+using Code.Enemies;
 using RuddnjsPool;
 using UnityEngine;
 
-namespace _01.Code.Combat.Projectiles
+namespace Code.Combat.Projectiles
 {
     public abstract class Projectile : MonoBehaviour , IPoolable
     {

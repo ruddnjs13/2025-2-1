@@ -1,55 +1,57 @@
 using System;
-using _01.Code.UI;
-using DG.Tweening;
-using Feedbacks;
+using Code.Core;
+using Code.Feedback;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[Serializable]
-public enum BtnType
+namespace Code.UI
 {
-    None,
-    Start,
-    Setting,
-    Exit,
-    Quit,
-}
-
-public class TitleUI : MonoSingleton<TitleUI>
-{
-    [SerializeField] private SettingUI _settingUI;
-    [SerializeField] private GameObject _titleUI;
-    BtnType _btnType = BtnType.None;
-    
-    private FeedbackPlayer _feedbackPlayer;
-
-    private void Awake()
+    [Serializable]
+    public enum BtnType
     {
-        _feedbackPlayer = GetComponentInChildren<FeedbackPlayer>();
+        None,
+        Start,
+        Setting,
+        Exit,
+        Quit,
     }
 
-    private void BtnClick()
+    public class TitleUI : MonoSingleton<TitleUI>
     {
-        switch (_btnType)
+        [SerializeField] private SettingUI _settingUI;
+        [SerializeField] private GameObject _titleUI;
+        
+        private BtnType _btnType = BtnType.None;
+        private FeedbackPlayer _feedbackPlayer;
+
+        private void Awake()
         {
-            case BtnType.Start: 
-                SceneManager.LoadScene(1);
-                break;
-            case BtnType.Setting:
-                _settingUI.Setup(false);
-                break;
-            case BtnType.Exit:
-                Application.Quit();
-                break;
-            case BtnType.Quit:
-                _settingUI.Setup(true);
-                break;
+            _feedbackPlayer = GetComponentInChildren<FeedbackPlayer>();
         }
-    }
 
-    public void SetBtnAndClick(BtnType btnType)
-    {
-        _btnType = btnType;
-        BtnClick();
+        private void BtnClick()
+        {
+            switch (_btnType)
+            {
+                case BtnType.Start: 
+                    SceneManager.LoadScene(1);
+                    break;
+                case BtnType.Setting:
+                    _settingUI.Setup(false);
+                    break;
+                case BtnType.Exit:
+                    Application.Quit();
+                    break;
+                case BtnType.Quit:
+                    _settingUI.Setup(true);
+                    break;
+            }
+        }
+
+        public void SetBtnAndClick(BtnType btnType)
+        {
+            _btnType = btnType;
+            BtnClick();
+        }
     }
 }

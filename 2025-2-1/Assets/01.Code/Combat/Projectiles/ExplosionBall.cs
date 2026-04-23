@@ -1,9 +1,9 @@
-using _01.Code.Enemies;
-using Feedbacks.VFX;
+using Code.Enemies;
+using Code.Feedback;
 using RuddnjsPool;
 using UnityEngine;
 
-namespace _01.Code.Combat.Projectiles
+namespace Code.Combat.Projectiles
 {
     public class ExplosionBall : Projectile
     {

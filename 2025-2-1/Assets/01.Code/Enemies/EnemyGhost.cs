@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace _01.Code.Enemies
+namespace Code.Enemies
 {
     public class EnemyGhost : Enemy
     {
@@ -41,12 +41,12 @@ namespace _01.Code.Enemies
 
         private IEnumerator IgnoreCoroutine()
         {
-            gameObject.layer = ignoreLayer;
+            gameObject.layer = IgnoreLayer;
             spriteRenderer.color = transparentColor;
             IsDead = true;
             yield return wait;
             IsDead = false;
-            gameObject.layer = enemyLayer;
+            gameObject.layer = EnemyLayer;
             spriteRenderer.color = originColor;
         }
 
